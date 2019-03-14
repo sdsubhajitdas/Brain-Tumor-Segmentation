@@ -80,7 +80,7 @@ def main():
     for filename in tqdm(range(1, total_images+1)):
         filename = str(filename)
         data = get_image_data(filename, data_read_path)
-        save_image_data(filename, data_save_path, data)
+        save_image_data(str(int(filename)-1), data_save_path, data)
 
 
 if __name__ == "__main__":
