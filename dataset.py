@@ -1,3 +1,4 @@
+import torch
 from torch.utils.data import Dataset, DataLoader
 import skimage.io as io
 from skimage.transform import resize
@@ -39,7 +40,8 @@ class TumorDataset(Dataset):
             index(int): Index of the dataset sample
 
         Return:
-            sample(dict): Contains the image & mask ndarray.(Grayscaled & Normalized)
+            sample(dict): Contains the index, image, mask ndarray.(Grayscaled & Normalized)
+                         'index': Index of the image.
                          'image': Contains the tumor image numpy array.
                          'mask' : Contains the mask image numpy array.
         """
@@ -56,10 +58,14 @@ class TumorDataset(Dataset):
         if mask.shape != (512, 512):
             mask = resize(mask, (512, 512))
 
-        sample = {'image': image, 'mask': mask}
+        image = torch.Tensor(image).view((1, 512, 512))
+        mask = torch.Tensor(mask).view((1, 512, 512))
 
         # Pytorch transformations applied if any.
         if self.transform:
-            sample = self.transform(sample)
+            image = self.transform(image)
+            mask = self.transform(mask)
+
+        sample = {'index': int(index),'image': image, 'mask': mask}
 
         return sample
