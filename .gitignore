@@ -1,7 +1,10 @@
 #custom
 .vscode
 dataset
-
+images
+*test*
+saved_models
+logs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
