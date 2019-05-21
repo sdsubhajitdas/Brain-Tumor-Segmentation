@@ -1,10 +1,20 @@
 #custom
 .vscode
 dataset
-images
+
 *test*
-saved_models
-logs
+
+# Whitelist Section
+logs/*
+!logs/05-47-51_PM_on_May_20,_2019/
+
+images/*
+!images/0.99*
+!images/0.98*
+!images/0.97*
+!images/0.96*
+!images/0.95*
+!images/0.94*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
