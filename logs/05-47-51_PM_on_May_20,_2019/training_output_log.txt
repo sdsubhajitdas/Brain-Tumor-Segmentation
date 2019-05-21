@@ -1,0 +1,513 @@
+Starting Training Process
+    Batch: 100,	Batch Loss: 0.1871936
+    Batch: 200,	Batch Loss: 0.1674757
+    Batch: 300,	Batch Loss: 0.1647017
+    Batch: 400,	Batch Loss: 0.1601179
+Epoch: 001,  Loss:0.1698722,  Time:317.41secs	Saved at loss: 0.1698722476
+    Batch: 100,	Batch Loss: 0.1592612
+    Batch: 200,	Batch Loss: 0.1594745
+    Batch: 300,	Batch Loss: 0.1595469
+    Batch: 400,	Batch Loss: 0.1552098
+Epoch: 002,  Loss:0.1583731,  Time:244.82secs	Saved at loss: 0.1583731062
+    Batch: 100,	Batch Loss: 0.1531492
+    Batch: 200,	Batch Loss: 0.1481159
+    Batch: 300,	Batch Loss: 0.1433566
+    Batch: 400,	Batch Loss: 0.1427358
+Epoch: 003,  Loss:0.1468394,  Time:244.63secs	Saved at loss: 0.1468393820
+    Batch: 100,	Batch Loss: 0.1349974
+    Batch: 200,	Batch Loss: 0.1323905
+    Batch: 300,	Batch Loss: 0.1355471
+    Batch: 400,	Batch Loss: 0.1256674
+Epoch: 004,  Loss:0.1321506,  Time:242.65secs	Saved at loss: 0.1321505947
+    Batch: 100,	Batch Loss: 0.1268995
+    Batch: 200,	Batch Loss: 0.1230370
+    Batch: 300,	Batch Loss: 0.1227401
+    Batch: 400,	Batch Loss: 0.1233433
+Epoch: 005,  Loss:0.1240050,  Time:262.55secs	Saved at loss: 0.1240049559
+    Batch: 100,	Batch Loss: 0.1262806
+    Batch: 200,	Batch Loss: 0.1169283
+    Batch: 300,	Batch Loss: 0.1161017
+    Batch: 400,	Batch Loss: 0.1160405
+Epoch: 006,  Loss:0.1188378,  Time:259.83secs	Saved at loss: 0.1188377949
+    Batch: 100,	Batch Loss: 0.1192572
+    Batch: 200,	Batch Loss: 0.1195193
+    Batch: 300,	Batch Loss: 0.1140135
+    Batch: 400,	Batch Loss: 0.1118950
+Epoch: 007,  Loss:0.1161712,  Time:243.00secs	Saved at loss: 0.1161712462
+    Batch: 100,	Batch Loss: 0.1103840
+    Batch: 200,	Batch Loss: 0.1189116
+    Batch: 300,	Batch Loss: 0.1112475
+    Batch: 400,	Batch Loss: 0.1065299
+Epoch: 008,  Loss:0.1117683,  Time:241.22secs	Saved at loss: 0.1117682605
+    Batch: 100,	Batch Loss: 0.1074835
+    Batch: 200,	Batch Loss: 0.1090209
+    Batch: 300,	Batch Loss: 0.1056421
+    Batch: 400,	Batch Loss: 0.1049827
+Epoch: 009,  Loss:0.1067823,  Time:241.26secs	Saved at loss: 0.1067823146
+    Batch: 100,	Batch Loss: 0.1049027
+    Batch: 200,	Batch Loss: 0.1028907
+    Batch: 300,	Batch Loss: 0.0971915
+    Batch: 400,	Batch Loss: 0.1059707
+Epoch: 010,  Loss:0.1027389,  Time:240.58secs	Saved at loss: 0.1027388739
+    Batch: 100,	Batch Loss: 0.1045231
+    Batch: 200,	Batch Loss: 0.0995357
+    Batch: 300,	Batch Loss: 0.0994525
+    Batch: 400,	Batch Loss: 0.0964893
+Epoch: 011,  Loss:0.1000002,  Time:240.84secs	Saved at loss: 0.1000001523
+    Batch: 100,	Batch Loss: 0.1016553
+    Batch: 200,	Batch Loss: 0.1011967
+    Batch: 300,	Batch Loss: 0.0990038
+    Batch: 400,	Batch Loss: 0.0959038
+Epoch: 012,  Loss:0.0994399,  Time:240.31secs	Saved at loss: 0.0994399083
+    Batch: 100,	Batch Loss: 0.0919021
+    Batch: 200,	Batch Loss: 0.0972807
+    Batch: 300,	Batch Loss: 0.0938987
+    Batch: 400,	Batch Loss: 0.0934874
+Epoch: 013,  Loss:0.0941422,  Time:239.91secs	Saved at loss: 0.0941422439
+    Batch: 100,	Batch Loss: 0.0947091
+    Batch: 200,	Batch Loss: 0.0951546
+    Batch: 300,	Batch Loss: 0.0912787
+    Batch: 400,	Batch Loss: 0.0929485
+Epoch: 014,  Loss:0.0935227,  Time:243.67secs	Saved at loss: 0.0935227034
+    Batch: 100,	Batch Loss: 0.0922863
+    Batch: 200,	Batch Loss: 0.0882259
+    Batch: 300,	Batch Loss: 0.0890982
+    Batch: 400,	Batch Loss: 0.0887124
+Epoch: 015,  Loss:0.0895807,  Time:240.58secs	Saved at loss: 0.0895807193
+    Batch: 100,	Batch Loss: 0.0913876
+    Batch: 200,	Batch Loss: 0.0853810
+    Batch: 300,	Batch Loss: 0.0850291
+    Batch: 400,	Batch Loss: 0.0890586
+Epoch: 016,  Loss:0.0877141,  Time:241.10secs	Saved at loss: 0.0877140789
+    Batch: 100,	Batch Loss: 0.0906124
+    Batch: 200,	Batch Loss: 0.0855157
+    Batch: 300,	Batch Loss: 0.0851434
+    Batch: 400,	Batch Loss: 0.0849936
+Epoch: 017,  Loss:0.0865663,  Time:241.68secs	Saved at loss: 0.0865662685
+    Batch: 100,	Batch Loss: 0.0853851
+    Batch: 200,	Batch Loss: 0.0849518
+    Batch: 300,	Batch Loss: 0.0808013
+    Batch: 400,	Batch Loss: 0.0834647
+Epoch: 018,  Loss:0.0836507,  Time:240.16secs	Saved at loss: 0.0836507343
+    Batch: 100,	Batch Loss: 0.0825657
+    Batch: 200,	Batch Loss: 0.0832646
+    Batch: 300,	Batch Loss: 0.0820042
+    Batch: 400,	Batch Loss: 0.0853350
+Epoch: 019,  Loss:0.0832924,  Time:240.20secs	Saved at loss: 0.0832923676
+    Batch: 100,	Batch Loss: 0.0823410
+    Batch: 200,	Batch Loss: 0.0821508
+    Batch: 300,	Batch Loss: 0.0791227
+    Batch: 400,	Batch Loss: 0.0795968
+Epoch: 020,  Loss:0.0808028,  Time:240.27secs	Saved at loss: 0.0808028216
+    Batch: 100,	Batch Loss: 0.0819413
+    Batch: 200,	Batch Loss: 0.0801987
+    Batch: 300,	Batch Loss: 0.0811072
+    Batch: 400,	Batch Loss: 0.0762799
+Epoch: 021,  Loss:0.0798818,  Time:240.45secs	Saved at loss: 0.0798817537
+    Batch: 100,	Batch Loss: 0.0829039
+    Batch: 200,	Batch Loss: 0.0747132
+    Batch: 300,	Batch Loss: 0.0800554
+    Batch: 400,	Batch Loss: 0.0715940
+Epoch: 022,  Loss:0.0773166,  Time:243.12secs	Saved at loss: 0.0773166185
+    Batch: 100,	Batch Loss: 0.0827159
+    Batch: 200,	Batch Loss: 0.0750945
+    Batch: 300,	Batch Loss: 0.0785629
+    Batch: 400,	Batch Loss: 0.0741025
+Epoch: 023,  Loss:0.0776189,  Time:241.51secs
+    Batch: 100,	Batch Loss: 0.0807259
+    Batch: 200,	Batch Loss: 0.0753575
+    Batch: 300,	Batch Loss: 0.0741653
+    Batch: 400,	Batch Loss: 0.0834536
+Epoch: 024,  Loss:0.0784255,  Time:242.07secs
+    Batch: 100,	Batch Loss: 0.0749018
+    Batch: 200,	Batch Loss: 0.0795127
+    Batch: 300,	Batch Loss: 0.0785801
+    Batch: 400,	Batch Loss: 0.0758849
+Epoch: 025,  Loss:0.0772199,  Time:241.86secs	Saved at loss: 0.0772198592
+    Batch: 100,	Batch Loss: 0.0739960
+    Batch: 200,	Batch Loss: 0.0744240
+    Batch: 300,	Batch Loss: 0.0749513
+    Batch: 400,	Batch Loss: 0.0777460
+Epoch: 026,  Loss:0.0752793,  Time:241.18secs	Saved at loss: 0.0752793097
+    Batch: 100,	Batch Loss: 0.0730548
+    Batch: 200,	Batch Loss: 0.0798630
+    Batch: 300,	Batch Loss: 0.0719559
+    Batch: 400,	Batch Loss: 0.0763511
+Epoch: 027,  Loss:0.0753062,  Time:241.93secs
+    Batch: 100,	Batch Loss: 0.0795060
+    Batch: 200,	Batch Loss: 0.0728150
+    Batch: 300,	Batch Loss: 0.0717912
+    Batch: 400,	Batch Loss: 0.0726515
+Epoch: 028,  Loss:0.0741909,  Time:241.80secs	Saved at loss: 0.0741909467
+    Batch: 100,	Batch Loss: 0.0718619
+    Batch: 200,	Batch Loss: 0.0732710
+    Batch: 300,	Batch Loss: 0.0693677
+    Batch: 400,	Batch Loss: 0.0809792
+Epoch: 029,  Loss:0.0738700,  Time:241.26secs	Saved at loss: 0.0738699546
+    Batch: 100,	Batch Loss: 0.0731819
+    Batch: 200,	Batch Loss: 0.0738820
+    Batch: 300,	Batch Loss: 0.0725047
+    Batch: 400,	Batch Loss: 0.0706431
+Epoch: 030,  Loss:0.0725529,  Time:241.97secs	Saved at loss: 0.0725529285
+    Batch: 100,	Batch Loss: 0.0688773
+    Batch: 200,	Batch Loss: 0.0721091
+    Batch: 300,	Batch Loss: 0.0762276
+    Batch: 400,	Batch Loss: 0.0675805
+Epoch: 031,  Loss:0.0711986,  Time:240.92secs	Saved at loss: 0.0711986386
+    Batch: 100,	Batch Loss: 0.0720217
+    Batch: 200,	Batch Loss: 0.0648137
+    Batch: 300,	Batch Loss: 0.0737515
+    Batch: 400,	Batch Loss: 0.0712906
+Epoch: 032,  Loss:0.0704694,  Time:241.30secs	Saved at loss: 0.0704693994
+    Batch: 100,	Batch Loss: 0.0704386
+    Batch: 200,	Batch Loss: 0.0654921
+    Batch: 300,	Batch Loss: 0.0683007
+    Batch: 400,	Batch Loss: 0.0689848
+Epoch: 033,  Loss:0.0683040,  Time:241.09secs	Saved at loss: 0.0683040393
+    Batch: 100,	Batch Loss: 0.0682925
+    Batch: 200,	Batch Loss: 0.0718981
+    Batch: 300,	Batch Loss: 0.0785552
+    Batch: 400,	Batch Loss: 0.0743212
+Epoch: 034,  Loss:0.0732668,  Time:241.10secs
+    Batch: 100,	Batch Loss: 0.0705060
+    Batch: 200,	Batch Loss: 0.0697679
+    Batch: 300,	Batch Loss: 0.0724547
+    Batch: 400,	Batch Loss: 0.0706456
+Epoch: 035,  Loss:0.0708436,  Time:240.94secs
+    Batch: 100,	Batch Loss: 0.0661541
+    Batch: 200,	Batch Loss: 0.0674283
+    Batch: 300,	Batch Loss: 0.0742683
+    Batch: 400,	Batch Loss: 0.0657685
+Epoch    35: reducing learning rate of group 0 to 8.5000e-04.
+Epoch: 036,  Loss:0.0684048,  Time:241.11secs
+    Batch: 100,	Batch Loss: 0.0621821
+    Batch: 200,	Batch Loss: 0.0661386
+    Batch: 300,	Batch Loss: 0.0678192
+    Batch: 400,	Batch Loss: 0.0647657
+Epoch: 037,  Loss:0.0652264,  Time:240.50secs	Saved at loss: 0.0652264021
+    Batch: 100,	Batch Loss: 0.0622271
+    Batch: 200,	Batch Loss: 0.0661444
+    Batch: 300,	Batch Loss: 0.0623408
+    Batch: 400,	Batch Loss: 0.0703519
+Epoch: 038,  Loss:0.0652661,  Time:241.80secs
+    Batch: 100,	Batch Loss: 0.0636472
+    Batch: 200,	Batch Loss: 0.0654495
+    Batch: 300,	Batch Loss: 0.0631175
+    Batch: 400,	Batch Loss: 0.0674147
+Epoch: 039,  Loss:0.0649072,  Time:240.79secs	Saved at loss: 0.0649072045
+    Batch: 100,	Batch Loss: 0.0645358
+    Batch: 200,	Batch Loss: 0.0656156
+    Batch: 300,	Batch Loss: 0.0635543
+    Batch: 400,	Batch Loss: 0.0623183
+Epoch: 040,  Loss:0.0640060,  Time:241.12secs	Saved at loss: 0.0640060032
+    Batch: 100,	Batch Loss: 0.0626309
+    Batch: 200,	Batch Loss: 0.0634361
+    Batch: 300,	Batch Loss: 0.0675156
+    Batch: 400,	Batch Loss: 0.0647199
+Epoch: 041,  Loss:0.0645756,  Time:240.83secs
+    Batch: 100,	Batch Loss: 0.0623211
+    Batch: 200,	Batch Loss: 0.0614637
+    Batch: 300,	Batch Loss: 0.0639384
+    Batch: 400,	Batch Loss: 0.0639380
+Epoch: 042,  Loss:0.0629153,  Time:240.84secs	Saved at loss: 0.0629152872
+    Batch: 100,	Batch Loss: 0.0573974
+    Batch: 200,	Batch Loss: 0.0628352
+    Batch: 300,	Batch Loss: 0.0582275
+    Batch: 400,	Batch Loss: 0.0641000
+Epoch: 043,  Loss:0.0606400,  Time:241.99secs	Saved at loss: 0.0606400208
+    Batch: 100,	Batch Loss: 0.0577656
+    Batch: 200,	Batch Loss: 0.0646672
+    Batch: 300,	Batch Loss: 0.0636157
+    Batch: 400,	Batch Loss: 0.0626209
+Epoch: 044,  Loss:0.0621674,  Time:240.12secs
+    Batch: 100,	Batch Loss: 0.0591794
+    Batch: 200,	Batch Loss: 0.0631576
+    Batch: 300,	Batch Loss: 0.0605809
+    Batch: 400,	Batch Loss: 0.0609225
+Epoch: 045,  Loss:0.0609601,  Time:240.28secs
+    Batch: 100,	Batch Loss: 0.0629955
+    Batch: 200,	Batch Loss: 0.0625036
+    Batch: 300,	Batch Loss: 0.0572295
+    Batch: 400,	Batch Loss: 0.0648666
+Epoch    45: reducing learning rate of group 0 to 7.2250e-04.
+Epoch: 046,  Loss:0.0618988,  Time:242.90secs
+    Batch: 100,	Batch Loss: 0.0613277
+    Batch: 200,	Batch Loss: 0.0632077
+    Batch: 300,	Batch Loss: 0.0575434
+    Batch: 400,	Batch Loss: 0.0596289
+Epoch: 047,  Loss:0.0604269,  Time:244.29secs	Saved at loss: 0.0604269373
+    Batch: 100,	Batch Loss: 0.0592197
+    Batch: 200,	Batch Loss: 0.0574262
+    Batch: 300,	Batch Loss: 0.0561058
+    Batch: 400,	Batch Loss: 0.0602767
+Epoch: 048,  Loss:0.0582571,  Time:250.97secs	Saved at loss: 0.0582571203
+    Batch: 100,	Batch Loss: 0.0558354
+    Batch: 200,	Batch Loss: 0.0561095
+    Batch: 300,	Batch Loss: 0.0583949
+    Batch: 400,	Batch Loss: 0.0583142
+Epoch: 049,  Loss:0.0571635,  Time:251.47secs	Saved at loss: 0.0571634981
+    Batch: 100,	Batch Loss: 0.0586197
+    Batch: 200,	Batch Loss: 0.0591804
+    Batch: 300,	Batch Loss: 0.0583610
+    Batch: 400,	Batch Loss: 0.0581037
+Epoch: 050,  Loss:0.0585662,  Time:244.13secs
+    Batch: 100,	Batch Loss: 0.0561511
+    Batch: 200,	Batch Loss: 0.0580210
+    Batch: 300,	Batch Loss: 0.0578764
+    Batch: 400,	Batch Loss: 0.0573034
+Epoch: 051,  Loss:0.0573380,  Time:248.25secs
+    Batch: 100,	Batch Loss: 0.0600665
+    Batch: 200,	Batch Loss: 0.0567396
+    Batch: 300,	Batch Loss: 0.0578895
+    Batch: 400,	Batch Loss: 0.0579545
+Epoch    51: reducing learning rate of group 0 to 6.1412e-04.
+Epoch: 052,  Loss:0.0581625,  Time:243.53secs
+    Batch: 100,	Batch Loss: 0.0534561
+    Batch: 200,	Batch Loss: 0.0562572
+    Batch: 300,	Batch Loss: 0.0536483
+    Batch: 400,	Batch Loss: 0.0562013
+Epoch: 053,  Loss:0.0548907,  Time:241.38secs	Saved at loss: 0.0548907295
+    Batch: 100,	Batch Loss: 0.0529336
+    Batch: 200,	Batch Loss: 0.0570665
+    Batch: 300,	Batch Loss: 0.0525571
+    Batch: 400,	Batch Loss: 0.0555187
+Epoch: 054,  Loss:0.0545190,  Time:241.28secs	Saved at loss: 0.0545189927
+    Batch: 100,	Batch Loss: 0.0532060
+    Batch: 200,	Batch Loss: 0.0546472
+    Batch: 300,	Batch Loss: 0.0532179
+    Batch: 400,	Batch Loss: 0.0576960
+Epoch: 055,  Loss:0.0546918,  Time:240.09secs
+    Batch: 100,	Batch Loss: 0.0538876
+    Batch: 200,	Batch Loss: 0.0546693
+    Batch: 300,	Batch Loss: 0.0520972
+    Batch: 400,	Batch Loss: 0.0562961
+Epoch: 056,  Loss:0.0542375,  Time:240.04secs	Saved at loss: 0.0542375403
+    Batch: 100,	Batch Loss: 0.0574817
+    Batch: 200,	Batch Loss: 0.0532254
+    Batch: 300,	Batch Loss: 0.0535666
+    Batch: 400,	Batch Loss: 0.0541076
+Epoch: 057,  Loss:0.0545953,  Time:242.18secs
+    Batch: 100,	Batch Loss: 0.0554674
+    Batch: 200,	Batch Loss: 0.0538274
+    Batch: 300,	Batch Loss: 0.0516289
+    Batch: 400,	Batch Loss: 0.0571671
+Epoch: 058,  Loss:0.0545227,  Time:242.33secs
+    Batch: 100,	Batch Loss: 0.0508096
+    Batch: 200,	Batch Loss: 0.0530574
+    Batch: 300,	Batch Loss: 0.0497712
+    Batch: 400,	Batch Loss: 0.0582178
+Epoch: 059,  Loss:0.0529640,  Time:243.47secs	Saved at loss: 0.0529640076
+    Batch: 100,	Batch Loss: 0.0535310
+    Batch: 200,	Batch Loss: 0.0545598
+    Batch: 300,	Batch Loss: 0.0520489
+    Batch: 400,	Batch Loss: 0.0552511
+Epoch: 060,  Loss:0.0538477,  Time:243.90secs
+    Batch: 100,	Batch Loss: 0.0572659
+    Batch: 200,	Batch Loss: 0.0546524
+    Batch: 300,	Batch Loss: 0.0503521
+    Batch: 400,	Batch Loss: 0.0503389
+Epoch: 061,  Loss:0.0531523,  Time:243.98secs
+    Batch: 100,	Batch Loss: 0.0557142
+    Batch: 200,	Batch Loss: 0.0486975
+    Batch: 300,	Batch Loss: 0.0488154
+    Batch: 400,	Batch Loss: 0.0542209
+Epoch: 062,  Loss:0.0518620,  Time:246.71secs	Saved at loss: 0.0518619822
+    Batch: 100,	Batch Loss: 0.0511525
+    Batch: 200,	Batch Loss: 0.0491328
+    Batch: 300,	Batch Loss: 0.0536462
+    Batch: 400,	Batch Loss: 0.0564725
+Epoch: 063,  Loss:0.0526010,  Time:252.16secs
+    Batch: 100,	Batch Loss: 0.0512224
+    Batch: 200,	Batch Loss: 0.0520559
+    Batch: 300,	Batch Loss: 0.0562247
+    Batch: 400,	Batch Loss: 0.0551926
+Epoch: 064,  Loss:0.0536739,  Time:248.84secs
+    Batch: 100,	Batch Loss: 0.0505199
+    Batch: 200,	Batch Loss: 0.0502366
+    Batch: 300,	Batch Loss: 0.0526648
+    Batch: 400,	Batch Loss: 0.0559743
+Epoch    64: reducing learning rate of group 0 to 5.2201e-04.
+Epoch: 065,  Loss:0.0523489,  Time:249.05secs
+    Batch: 100,	Batch Loss: 0.0531565
+    Batch: 200,	Batch Loss: 0.0521928
+    Batch: 300,	Batch Loss: 0.0510375
+    Batch: 400,	Batch Loss: 0.0509729
+Epoch: 066,  Loss:0.0518399,  Time:249.74secs	Saved at loss: 0.0518399472
+    Batch: 100,	Batch Loss: 0.0506657
+    Batch: 200,	Batch Loss: 0.0506479
+    Batch: 300,	Batch Loss: 0.0521849
+    Batch: 400,	Batch Loss: 0.0516711
+Epoch: 067,  Loss:0.0512924,  Time:242.52secs	Saved at loss: 0.0512923825
+    Batch: 100,	Batch Loss: 0.0520959
+    Batch: 200,	Batch Loss: 0.0504302
+    Batch: 300,	Batch Loss: 0.0478237
+    Batch: 400,	Batch Loss: 0.0504997
+Epoch: 068,  Loss:0.0502124,  Time:239.77secs	Saved at loss: 0.0502123905
+    Batch: 100,	Batch Loss: 0.0485527
+    Batch: 200,	Batch Loss: 0.0500956
+    Batch: 300,	Batch Loss: 0.0547239
+    Batch: 400,	Batch Loss: 0.0512186
+Epoch: 069,  Loss:0.0511477,  Time:239.84secs
+    Batch: 100,	Batch Loss: 0.0480826
+    Batch: 200,	Batch Loss: 0.0496717
+    Batch: 300,	Batch Loss: 0.0521876
+    Batch: 400,	Batch Loss: 0.0515913
+Epoch: 070,  Loss:0.0503833,  Time:241.20secs
+    Batch: 100,	Batch Loss: 0.0520746
+    Batch: 200,	Batch Loss: 0.0523900
+    Batch: 300,	Batch Loss: 0.0487659
+    Batch: 400,	Batch Loss: 0.0491544
+Epoch    70: reducing learning rate of group 0 to 4.4371e-04.
+Epoch: 071,  Loss:0.0505962,  Time:249.50secs
+    Batch: 100,	Batch Loss: 0.0484915
+    Batch: 200,	Batch Loss: 0.0474458
+    Batch: 300,	Batch Loss: 0.0454933
+    Batch: 400,	Batch Loss: 0.0487818
+Epoch: 072,  Loss:0.0475531,  Time:244.50secs	Saved at loss: 0.0475531197
+    Batch: 100,	Batch Loss: 0.0468846
+    Batch: 200,	Batch Loss: 0.0475393
+    Batch: 300,	Batch Loss: 0.0483068
+    Batch: 400,	Batch Loss: 0.0533769
+Epoch: 073,  Loss:0.0490269,  Time:246.43secs
+    Batch: 100,	Batch Loss: 0.0492119
+    Batch: 200,	Batch Loss: 0.0469820
+    Batch: 300,	Batch Loss: 0.0478958
+    Batch: 400,	Batch Loss: 0.0465491
+Epoch: 074,  Loss:0.0476597,  Time:249.08secs
+    Batch: 100,	Batch Loss: 0.0474008
+    Batch: 200,	Batch Loss: 0.0456188
+    Batch: 300,	Batch Loss: 0.0462416
+    Batch: 400,	Batch Loss: 0.0516171
+Epoch    74: reducing learning rate of group 0 to 3.7715e-04.
+Epoch: 075,  Loss:0.0477196,  Time:248.98secs
+    Batch: 100,	Batch Loss: 0.0457624
+    Batch: 200,	Batch Loss: 0.0458045
+    Batch: 300,	Batch Loss: 0.0473250
+    Batch: 400,	Batch Loss: 0.0470841
+Epoch: 076,  Loss:0.0464940,  Time:251.82secs	Saved at loss: 0.0464940120
+    Batch: 100,	Batch Loss: 0.0457149
+    Batch: 200,	Batch Loss: 0.0456713
+    Batch: 300,	Batch Loss: 0.0504323
+    Batch: 400,	Batch Loss: 0.0445485
+Epoch: 077,  Loss:0.0465917,  Time:246.21secs
+    Batch: 100,	Batch Loss: 0.0443321
+    Batch: 200,	Batch Loss: 0.0448200
+    Batch: 300,	Batch Loss: 0.0487532
+    Batch: 400,	Batch Loss: 0.0457802
+Epoch: 078,  Loss:0.0459214,  Time:247.45secs	Saved at loss: 0.0459213832
+    Batch: 100,	Batch Loss: 0.0463226
+    Batch: 200,	Batch Loss: 0.0462221
+    Batch: 300,	Batch Loss: 0.0484850
+    Batch: 400,	Batch Loss: 0.0426355
+Epoch: 079,  Loss:0.0459163,  Time:247.09secs	Saved at loss: 0.0459163198
+    Batch: 100,	Batch Loss: 0.0432384
+    Batch: 200,	Batch Loss: 0.0457638
+    Batch: 300,	Batch Loss: 0.0456488
+    Batch: 400,	Batch Loss: 0.0456211
+Epoch: 080,  Loss:0.0450680,  Time:249.86secs	Saved at loss: 0.0450680276
+    Batch: 100,	Batch Loss: 0.0450537
+    Batch: 200,	Batch Loss: 0.0458054
+    Batch: 300,	Batch Loss: 0.0466049
+    Batch: 400,	Batch Loss: 0.0445093
+Epoch: 081,  Loss:0.0454933,  Time:250.34secs
+    Batch: 100,	Batch Loss: 0.0497646
+    Batch: 200,	Batch Loss: 0.0431269
+    Batch: 300,	Batch Loss: 0.0428574
+    Batch: 400,	Batch Loss: 0.0463658
+Epoch: 082,  Loss:0.0455287,  Time:249.00secs
+    Batch: 100,	Batch Loss: 0.0432383
+    Batch: 200,	Batch Loss: 0.0438010
+    Batch: 300,	Batch Loss: 0.0440469
+    Batch: 400,	Batch Loss: 0.0477686
+Epoch: 083,  Loss:0.0447137,  Time:247.01secs	Saved at loss: 0.0447137034
+    Batch: 100,	Batch Loss: 0.0466830
+    Batch: 200,	Batch Loss: 0.0427681
+    Batch: 300,	Batch Loss: 0.0450468
+    Batch: 400,	Batch Loss: 0.0478969
+Epoch: 084,  Loss:0.0455987,  Time:250.27secs
+    Batch: 100,	Batch Loss: 0.0450549
+    Batch: 200,	Batch Loss: 0.0452137
+    Batch: 300,	Batch Loss: 0.0452322
+    Batch: 400,	Batch Loss: 0.0458966
+Epoch: 085,  Loss:0.0453493,  Time:250.38secs
+    Batch: 100,	Batch Loss: 0.0458513
+    Batch: 200,	Batch Loss: 0.0448279
+    Batch: 300,	Batch Loss: 0.0454327
+    Batch: 400,	Batch Loss: 0.0456918
+Epoch    85: reducing learning rate of group 0 to 3.2058e-04.
+Epoch: 086,  Loss:0.0454509,  Time:247.85secs
+    Batch: 100,	Batch Loss: 0.0433842
+    Batch: 200,	Batch Loss: 0.0419810
+    Batch: 300,	Batch Loss: 0.0431062
+    Batch: 400,	Batch Loss: 0.0461835
+Epoch: 087,  Loss:0.0436637,  Time:249.06secs	Saved at loss: 0.0436637341
+    Batch: 100,	Batch Loss: 0.0438477
+    Batch: 200,	Batch Loss: 0.0412526
+    Batch: 300,	Batch Loss: 0.0435649
+    Batch: 400,	Batch Loss: 0.0435427
+Epoch: 088,  Loss:0.0430520,  Time:251.30secs	Saved at loss: 0.0430519843
+    Batch: 100,	Batch Loss: 0.0433248
+    Batch: 200,	Batch Loss: 0.0461136
+    Batch: 300,	Batch Loss: 0.0419777
+    Batch: 400,	Batch Loss: 0.0436072
+Epoch: 089,  Loss:0.0437558,  Time:251.27secs
+    Batch: 100,	Batch Loss: 0.0428038
+    Batch: 200,	Batch Loss: 0.0424230
+    Batch: 300,	Batch Loss: 0.0449099
+    Batch: 400,	Batch Loss: 0.0442571
+Epoch: 090,  Loss:0.0435985,  Time:244.40secs
+    Batch: 100,	Batch Loss: 0.0440661
+    Batch: 200,	Batch Loss: 0.0448917
+    Batch: 300,	Batch Loss: 0.0441491
+    Batch: 400,	Batch Loss: 0.0439913
+Epoch    90: reducing learning rate of group 0 to 2.7249e-04.
+Epoch: 091,  Loss:0.0442746,  Time:250.06secs
+    Batch: 100,	Batch Loss: 0.0434640
+    Batch: 200,	Batch Loss: 0.0432640
+    Batch: 300,	Batch Loss: 0.0415198
+    Batch: 400,	Batch Loss: 0.0402719
+Epoch: 092,  Loss:0.0421299,  Time:251.03secs	Saved at loss: 0.0421299033
+    Batch: 100,	Batch Loss: 0.0417307
+    Batch: 200,	Batch Loss: 0.0415599
+    Batch: 300,	Batch Loss: 0.0415627
+    Batch: 400,	Batch Loss: 0.0430515
+Epoch: 093,  Loss:0.0419762,  Time:250.27secs	Saved at loss: 0.0419761919
+    Batch: 100,	Batch Loss: 0.0413395
+    Batch: 200,	Batch Loss: 0.0423497
+    Batch: 300,	Batch Loss: 0.0438685
+    Batch: 400,	Batch Loss: 0.0410761
+Epoch: 094,  Loss:0.0421585,  Time:250.36secs
+    Batch: 100,	Batch Loss: 0.0395158
+    Batch: 200,	Batch Loss: 0.0439819
+    Batch: 300,	Batch Loss: 0.0420670
+    Batch: 400,	Batch Loss: 0.0419135
+Epoch: 095,  Loss:0.0418696,  Time:250.72secs	Saved at loss: 0.0418695596
+    Batch: 100,	Batch Loss: 0.0412055
+    Batch: 200,	Batch Loss: 0.0409632
+    Batch: 300,	Batch Loss: 0.0423720
+    Batch: 400,	Batch Loss: 0.0422498
+Epoch: 096,  Loss:0.0416976,  Time:246.60secs	Saved at loss: 0.0416976312
+    Batch: 100,	Batch Loss: 0.0391651
+    Batch: 200,	Batch Loss: 0.0428295
+    Batch: 300,	Batch Loss: 0.0454492
+    Batch: 400,	Batch Loss: 0.0438746
+Epoch: 097,  Loss:0.0428296,  Time:245.06secs
+    Batch: 100,	Batch Loss: 0.0398872
+    Batch: 200,	Batch Loss: 0.0447955
+    Batch: 300,	Batch Loss: 0.0406875
+    Batch: 400,	Batch Loss: 0.0427253
+Epoch: 098,  Loss:0.0420239,  Time:243.74secs
+    Batch: 100,	Batch Loss: 0.0408843
+    Batch: 200,	Batch Loss: 0.0413535
+    Batch: 300,	Batch Loss: 0.0423637
+    Batch: 400,	Batch Loss: 0.0405453
+Epoch: 099,  Loss:0.0412867,  Time:248.00secs	Saved at loss: 0.0412867080
+    Batch: 100,	Batch Loss: 0.0408645
+    Batch: 200,	Batch Loss: 0.0388137
+    Batch: 300,	Batch Loss: 0.0422074
+    Batch: 400,	Batch Loss: 0.0419930
+Epoch: 100,  Loss:0.0409696,  Time:246.70secs	Saved at loss: 0.0409696491
+Training Finished after 100 epoches
+
+
+Dice Score 0.7415226930829907
