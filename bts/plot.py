@@ -7,9 +7,9 @@ def result(image, mask, output, title, transparency=0.38, save_path=None):
     """ Plots a 2x3 plot with comparisons of output and original image.
     Works best with Jupyter Notebook/Lab.
     Parameters:
-        image(ndarray): Array containing the original image of MRI scan.
-        mask(ndarray): Array containing the original mask of tumor.
-        output(ndarray): Model constructed mask from input image.
+        image(numpy.ndarray): Array containing the original image of MRI scan.
+        mask(numpy.ndarray): Array containing the original mask of tumor.
+        output(numpy.ndarray): Model constructed mask from input image.
         title(str): Title of the plot to be used.
         transparency(float): Transparency level of mask on images.
                              Default: 0.38
