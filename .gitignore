@@ -14,6 +14,8 @@ images/*
 !images/0.96*
 !images/0.95*
 !images/0.94*
+!images/README
+!images/API
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
