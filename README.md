@@ -59,11 +59,13 @@ Loss Graph Plotted in Tensorboard<br><br>
 To see the complete output produced during the training process check [this](logs/05-47-51_PM_on_May_20,_2019/training_output_log.txt)
 
 ## Installation
+This project uses python3.
 
 Clone the project.
 ```bash
 git clone https://github.com/Jeetu95/Brain-Tumor-Segmentation.git
 ```
+Install Pytorch from this [link](https://pytorch.org/get-started/locally/)<br>
 Use pip to install all the dependencies
 ```bash
 pip install -r requirements.txt
@@ -75,6 +77,12 @@ jupyter lab
 To see logs in Tensorboard
 ```bash
 tensorboard --logdir logs --samples_per_plugin images=100
+```
+To setup the project dataset
+```bash
+python setup_scripts/download_dataset.py
+python setup_scripts/unzip_dataset.py
+python setup_scripts/extract_images.py
 ```
 
 ## Usage
