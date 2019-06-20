@@ -123,8 +123,6 @@ Some samples from our training dataset output are below. The top best results ar
 ![](images/0.96626_408.png)  |  ![](images/0.96605_994.png)
 ![](images/0.96603_170.png)  |  ![](images/0.96600_63.png)
 
-Output video comming soon.
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
