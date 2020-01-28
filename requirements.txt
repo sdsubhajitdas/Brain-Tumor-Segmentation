@@ -7,3 +7,4 @@ requests==2.21.0
 tensorboardX==1.6
 torchsummary==1.5.1
 tqdm==4.30.0
+torch
