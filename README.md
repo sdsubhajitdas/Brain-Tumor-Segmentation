@@ -1,6 +1,6 @@
 # Brain Tumor Segmentation
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/Jeetu95)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/sdsubhajitdas)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://github.com/Jeetu95/Brain-Tumor-Segmentation)
 [![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)<br>
 [![HitCount](http://hits.dwyl.io/Jeetu95/Brain-Tumor-Segmentation.svg)](http://hits.dwyl.io/Jeetu95/Brain-Tumor-Segmentation)
