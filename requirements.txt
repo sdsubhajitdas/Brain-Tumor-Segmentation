@@ -6,6 +6,6 @@ Pillow==6.2.0
 requests==2.21.0
 tensorboardX==1.6
 torchsummary==1.5.1
-tqdm==4.30.0
+tqdm==4.19.9
 torch==1.0.1
-torchvision==0.5.0
+torchvision==0.2.2
