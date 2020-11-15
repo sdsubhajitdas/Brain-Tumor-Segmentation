@@ -2,7 +2,7 @@ h5py==2.9.0
 jupyterlab==0.35.4
 matplotlib==3.0.2
 numpy==1.16.1
-Pillow==6.2.0
+Pillow==7.1.0
 requests==2.21.0
 tensorboardX==1.6
 torchsummary==1.5.1
