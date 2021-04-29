@@ -3,9 +3,8 @@
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/sdsubhajitdas)
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://github.com/Jeetu95/Brain-Tumor-Segmentation)
 [![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)<br>
-[![HitCount](http://hits.dwyl.io/Jeetu95/Brain-Tumor-Segmentation.svg)](http://hits.dwyl.io/Jeetu95/Brain-Tumor-Segmentation)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Jeetu95/Brain-Tumor-Segmentation/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintenance-No-lightgrey)](https://github.com/Jeetu95/Brain-Tumor-Segmentation/graphs/commit-activity)
 [![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/Jeetu95/Brain-Tumor-Segmentation/issues)
 
 This project uses [U-Net Architecture](https://arxiv.org/abs/1505.04597) to create segmentation masks for brain tumor images.
