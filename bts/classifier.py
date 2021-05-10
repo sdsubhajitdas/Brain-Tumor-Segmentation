@@ -122,8 +122,9 @@ class BrainTumorClassifier():
         Returns:
             None
         """
-        if self.device == 'cpu':
-            self.model.load_state_dict(torch.load(path, map_location=device))
+        if self.device.type == 'cpu':
+            self.model.load_state_dict(
+                torch.load(path, map_location=self.device))
         else:
             self.model.load_state_dict(torch.load(path))
             self.model.to(self.device)
@@ -177,11 +178,11 @@ class BrainTumorClassifier():
             # Threshold elimination.
             mask_pred = (mask_pred > threshold)
             mask_pred = mask_pred.numpy()
-            
+
             mask = np.resize(mask, (1, 512, 512))
             mask_pred = np.resize(mask_pred, (1, 512, 512))
-            
-            # Calculating the dice score for original and 
+
+            # Calculating the dice score for original and
             # constructed image mask.
             mean_val_score += self._dice_coefficient(mask_pred, mask)
 
