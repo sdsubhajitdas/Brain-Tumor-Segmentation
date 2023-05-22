@@ -3,7 +3,7 @@ jupyterlab==0.35.4
 matplotlib==3.0.2
 numpy==1.16.1
 Pillow==8.1.1
-requests==2.21.0
+requests==2.31.0
 tensorboardX==1.6
 torchsummary==1.5.1
 tqdm==4.19.9
