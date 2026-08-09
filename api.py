@@ -30,8 +30,12 @@ def get_arguments():
 
 class Api:
     def __init__(self):
-        self.device = torch.device(
-            'cuda' if torch.cuda.is_available() else 'cpu')
+        if torch.cuda.is_available():
+            self.device = torch.device('cuda')
+        elif torch.backends.mps.is_available():
+            self.device = torch.device('mps')
+        else:
+            self.device = torch.device('cpu')
 
     def call(self, file, folder, ofp, odp):
         """Method saves the predicted image by taking different parameters."""
@@ -46,11 +50,13 @@ class Api:
             image = self._get_file(file)
             output = self._get_model_output(image, model)
 
-            name, extension = file.split('.')
-            save_path = name+'_predicted'+'.'+extension
+            name, extension = os.path.splitext(file)
             if ofp:
-                save_path = os.path.join(ofp,save_path)
-                
+                name = os.path.basename(name)
+                save_path = os.path.join(ofp, name+'_predicted'+extension)
+            else:
+                save_path = name+'_predicted'+extension
+
             self._save_image(output, save_path)
             print(f'Output Image Saved At {save_path}')
 
@@ -61,8 +67,8 @@ class Api:
                 image = self._get_file(file_name)
                 output = self._get_model_output(image, model)
 
-                name, extension = file.split('.')
-                save_path = name+'_predicted'+'.'+extension
+                name, extension = os.path.splitext(file)
+                save_path = name+'_predicted'+extension
 
                 save_path = os.path.join(
                     odp, save_path) if odp else os.path.join(folder, save_path)
@@ -88,7 +94,7 @@ class Api:
         output = model(image).detach().cpu()
         output = (output > 0.5)
         output = output.numpy()
-        output = np.resize((output * 255), (512, 512))
+        output = (output * 255).reshape((512, 512))
         return output
 
     def _save_image(self, image, path):

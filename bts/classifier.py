@@ -1,9 +1,8 @@
 import torch
 import bts.loss as loss
 import torch.optim as optim
-from torch.autograd import Variable
 
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 
 import numpy as np
 
@@ -122,11 +121,8 @@ class BrainTumorClassifier():
         Returns:
             None
         """
-        if self.device == 'cpu':
-            self.model.load_state_dict(torch.load(path, map_location=device))
-        else:
-            self.model.load_state_dict(torch.load(path))
-            self.model.to(self.device)
+        self.model.load_state_dict(torch.load(path, map_location=self.device))
+        self.model.to(self.device)
 
     def test(self, testloader, threshold=0.5):
         """ To test the performance of model on testing dataset.
@@ -178,8 +174,8 @@ class BrainTumorClassifier():
             mask_pred = (mask_pred > threshold)
             mask_pred = mask_pred.numpy()
             
-            mask = np.resize(mask, (1, 512, 512))
-            mask_pred = np.resize(mask_pred, (1, 512, 512))
+            mask = mask.reshape((1, 512, 512))
+            mask_pred = mask_pred.reshape((1, 512, 512))
             
             # Calculating the dice score for original and 
             # constructed image mask.
@@ -218,9 +214,9 @@ class BrainTumorClassifier():
         output = (output > threshold)
         output = output.numpy()
 
-        image = np.resize(image, (512, 512))
-        mask = np.resize(mask, (512, 512))
-        output = np.resize(output, (512, 512))
+        image = image.reshape((512, 512))
+        mask = mask.reshape((512, 512))
+        output = output.reshape((512, 512))
         score = self._dice_coefficient(output, mask)
         return image, mask, output, score
 
