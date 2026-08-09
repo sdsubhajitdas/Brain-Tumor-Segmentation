@@ -8,26 +8,12 @@ logs/*
 !logs/05-47-51_PM_on_May_20,_2019/
 
 images/*
-!images/0.98010_423.png
-!images/0.97981_1172.png
-!images/0.97746_537.png
-!images/0.97623_636.png
-!images/0.97441_1247.png
-!images/0.97391_373.png
-!images/0.97316_425.png
-!images/0.97224_1400.png
-!images/0.97216_631.png
-!images/0.97097_50.png
-!images/0.97050_1465.png
-!images/0.96925_581.png
-!images/0.96848_390.png
-!images/0.96812_222.png
-!images/0.96669_14.png
-!images/0.96664_189.png
-!images/0.96626_408.png
-!images/0.96605_994.png
-!images/0.96603_170.png
-!images/0.96600_63.png
+!images/0.99*
+!images/0.98*
+!images/0.97*
+!images/0.96*
+!images/0.95*
+!images/0.94*
 !images/README
 !images/API
 

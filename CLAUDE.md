@@ -51,17 +51,23 @@ is combined onto this one branch, open as a single PR against `master`.
   - `images/` at repo root is **not** the gallery's source of truth at runtime —
     `.dockerignore` excludes it entirely, so the deployed app never reads from it.
     It only feeds two build-time/doc consumers: (1) `web/scripts/build_gallery_thumbs.py`,
-    a one-off script that globs `images/*.png` to regenerate the committed
+    a one-off script that globs `images/*.png` to regenerate
     `web/static/gallery/{thumbs,full}/*.webp` (295 of each, already committed —
     these are what `/gallery` actually serves), and (2) `README.md`'s "Results"
     section, which hand-picks 20 of the highest-scoring images by exact filename.
-    As of 2026-08-10, `images/*.png` is trimmed in git to just those 20
-    README-referenced files (whitelisted in `.gitignore` by exact filename, not a
-    dice-score prefix range) to cut repo bloat. This means `build_gallery_thumbs.py`
-    can no longer regenerate the full 295-image set from what's in git — the source
-    corpus (601 images, synced 2026-08-10 from the owner's Google Drive zip) was
-    never committed at all; re-derive from that zip if the gallery ever needs
-    rebuilding at a different size/quality/threshold.
+    `images/*.png` itself is intentionally kept at its original 88 files
+    (dice >= 0.94, whitelisted in `.gitignore` by dice-score prefix,
+    `!images/0.9[4-9]*`) — matching `master`, not widened to the full 295 the
+    gallery now shows. Tried trimming it to just the 20 README-referenced files
+    on 2026-08-10 to cut repo bloat, but that also deleted 68 files that
+    pre-existed on `master` before any of this session's work, which the owner
+    asked to have restored; reverted `images/` and `.gitignore` back to
+    `master`'s state entirely rather than re-deriving a narrower whitelist. Net
+    effect: the live gallery still serves all 295 images (already-committed
+    WebP derivatives don't depend on this), but `images/*.png` source coverage
+    is intentionally narrower than that — the fuller 601-image source corpus
+    (synced 2026-08-10 from the owner's Google Drive zip) was never committed;
+    re-derive from that zip if the gallery ever needs rebuilding.
   - `bts/classifier.py` and `bts/model.py` lazily import `tensorboard`/`torchinfo`
     (scoped to `train()`/`.summary()`) rather than at module level — needed so the
     lean web image (which deliberately excludes those training-only deps) can still
