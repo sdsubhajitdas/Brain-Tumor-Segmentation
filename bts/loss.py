@@ -1,6 +1,6 @@
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
+from torch import nn
 
 
 class DiceLoss(nn.Module):
@@ -13,7 +13,7 @@ class DiceLoss(nn.Module):
 
     def __init__(self):
         """Simple constructor for the class."""
-        super(DiceLoss, self).__init__()
+        super().__init__()
 
     def forward(self, predicted, target):
         """ Method for calculation of loss from sample.
@@ -67,7 +67,7 @@ class BCEDiceLoss(nn.Module):
 
     def __init__(self, device):
         """Simple constructor for the class."""
-        super(BCEDiceLoss, self).__init__()
+        super().__init__()
         self.dice_loss = DiceLoss().to(device)
 
     def forward(self, predicted, target):

@@ -1,12 +1,10 @@
-from torch.utils.data import Dataset
-import torchvision.transforms as transforms
-import torchvision.transforms.functional as TF
-
-
-from PIL import Image
-
 import os
 import random
+
+import torchvision.transforms.functional as TF
+from PIL import Image
+from torch.utils.data import Dataset
+from torchvision import transforms
 
 
 class TumorDataset(Dataset):

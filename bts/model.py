@@ -1,7 +1,11 @@
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
+from torch import nn
 from torchinfo import summary
+
+
+class InvalidFilterListError(Exception):
+    """Raised when DynamicUNet isn't given exactly 5 filter values."""
 
 
 class DynamicUNet(nn.Module):
@@ -25,10 +29,10 @@ class DynamicUNet(nn.Module):
             input_channels(int): Input channels for the network. Default: 1
             output_channels(int): Output channels for the final network. Default: 1
         """
-        super(DynamicUNet, self).__init__()
+        super().__init__()
 
         if len(filters) != 5:
-            raise Exception(f"Filter list size {len(filters)}, expected 5!")
+            raise InvalidFilterListError(f"Filter list size {len(filters)}, expected 5!")
 
         padding = 1
         ks = 3

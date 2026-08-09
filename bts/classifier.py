@@ -1,16 +1,19 @@
-import torch
-import bts.loss as loss
-import torch.optim as optim
-
-from torch.utils.tensorboard import SummaryWriter
-
-import numpy as np
-
-from datetime import datetime
+from datetime import datetime, timezone
 from time import time
 
+import numpy as np
+import torch
+from torch import optim
+from torch.utils.tensorboard import SummaryWriter
 
-class BrainTumorClassifier():
+from bts import loss
+
+
+class TestBatchSizeError(Exception):
+    """Raised when BrainTumorClassifier.test() is given a testloader with batch size != 1."""
+
+
+class BrainTumorClassifier:
     """ Returns a BrainTumorClassifier class object which represents our 
     optimizer for our network.
     """
@@ -27,7 +30,7 @@ class BrainTumorClassifier():
         self.model = model
         self.device = device
         self.criterion = loss.BCEDiceLoss(self.device).to(device)
-        self.log_path = datetime.now().strftime("%I-%M-%S_%p_on_%B_%d,_%Y")
+        self.log_path = datetime.now(timezone.utc).astimezone().strftime("%I-%M-%S_%p_on_%B_%d,_%Y")
 
     def train(self, epochs, trainloader, mini_batch=None, learning_rate=0.001, save_best=None, plot_image=None):
         """ Train the model using Adam Optimizer.
@@ -56,7 +59,7 @@ class BrainTumorClassifier():
         # Tensorboard Writter
         self.tb_writer = SummaryWriter(log_dir=f'logs/{self.log_path}')
         # Training session history data.
-        history = {'train_loss': list()}
+        history = {'train_loss': []}
         # For save best feature. Initial loss taken a very high value.
         last_loss = 1000
         # Optimizer used for training process. Adam Optimizer.
@@ -149,7 +152,7 @@ class BrainTumorClassifier():
         # Error checking to set testloader batch size to 1.
         batch_size = testloader.batch_size
         if batch_size != 1:
-            raise Exception("Set batch size to 1 for testing purpose")
+            raise TestBatchSizeError("Set batch size to 1 for testing purpose")
         # Converting to iterator to get data in loops.
         testloader = iter(testloader)
         # Running the loop until no more data is left to test.
@@ -252,13 +255,12 @@ class BrainTumorClassifier():
             batch_loss += loss_value.item()
 
             # Printing batch logs if any.
-            if mini_batch:
-                if (batch+1) % mini_batch == 0:
-                    batch_loss = batch_loss / \
-                        (mini_batch*trainloader.batch_size)
-                    print(
-                        f'    Batch: {batch+1:02d},\tBatch Loss: {batch_loss:.7f}')
-                    batch_loss = 0
+            if mini_batch and (batch+1) % mini_batch == 0:
+                batch_loss = batch_loss / \
+                    (mini_batch*trainloader.batch_size)
+                print(
+                    f'    Batch: {batch+1:02d},\tBatch Loss: {batch_loss:.7f}')
+                batch_loss = 0
 
         epoch_loss = epoch_loss/(batch_iteration*trainloader.batch_size)
         return epoch_loss
@@ -272,8 +274,7 @@ class BrainTumorClassifier():
         Returns:
             None
         """
-        inputs = list()
-        mask = list()
+        inputs = []
 
         # Inputs seperated.
         for data in sample:
