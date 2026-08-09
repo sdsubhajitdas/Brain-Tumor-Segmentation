@@ -3,9 +3,9 @@ import os
 
 import numpy as np
 import torch
-import torchvision.transforms as transforms
 import torchvision.transforms.functional as TF
 from PIL import Image
+from torchvision import transforms
 
 from bts.classifier import BrainTumorClassifier
 from bts.model import DynamicUNet
@@ -71,12 +71,12 @@ class Api:
 
         elif folder != None:
             image_list = os.listdir(folder)
-            for file in image_list:
-                file_name = os.path.join(folder, file)
+            for image_file in image_list:
+                file_name = os.path.join(folder, image_file)
                 image = self._get_file(file_name)
                 output = self._get_model_output(image, model)
 
-                name, extension = os.path.splitext(file)
+                name, extension = os.path.splitext(image_file)
                 save_path = name + "_predicted" + extension
 
                 save_path = (
