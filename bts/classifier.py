@@ -14,26 +14,36 @@ class TestBatchSizeError(Exception):
 
 
 class BrainTumorClassifier:
-    """ Returns a BrainTumorClassifier class object which represents our 
+    """Returns a BrainTumorClassifier class object which represents our
     optimizer for our network.
     """
 
     def __init__(self, model, device):
-        """ Constructor for our BrainTumorClassifier class.
+        """Constructor for our BrainTumorClassifier class.
         Parameters:
             model(DynamicUNet): UNet model to be trained.
             device(torch.device): Device currently used for all computations.
 
-        Returns: 
+        Returns:
             None
         """
         self.model = model
         self.device = device
         self.criterion = loss.BCEDiceLoss(self.device).to(device)
-        self.log_path = datetime.now(timezone.utc).astimezone().strftime("%I-%M-%S_%p_on_%B_%d,_%Y")
+        self.log_path = (
+            datetime.now(timezone.utc).astimezone().strftime("%I-%M-%S_%p_on_%B_%d,_%Y")
+        )
 
-    def train(self, epochs, trainloader, mini_batch=None, learning_rate=0.001, save_best=None, plot_image=None):
-        """ Train the model using Adam Optimizer.
+    def train(
+        self,
+        epochs,
+        trainloader,
+        mini_batch=None,
+        learning_rate=0.001,
+        save_best=None,
+        plot_image=None,
+    ):
+        """Train the model using Adam Optimizer.
         Parameters:
             epochs(int): Number of epochs for the training session.
             trainloader(torch.utils.data.Dataloader): Training data
@@ -43,7 +53,7 @@ class BrainTumorClassifier:
                             Default: None
             learning_rate(float): Learning rate for optimizer.
                                   Default: 0.001
-            save_best(str): Path to save the best model. At the end of 
+            save_best(str): Path to save the best model. At the end of
                             the training the epoch with losest loss will
                             be saved. If None then model won't be saved.
                             Default: None
@@ -57,28 +67,30 @@ class BrainTumorClassifier:
                             'train_loss': List of loss at every epoch
         """
         # Tensorboard Writter
-        self.tb_writer = SummaryWriter(log_dir=f'logs/{self.log_path}')
+        self.tb_writer = SummaryWriter(log_dir=f"logs/{self.log_path}")
         # Training session history data.
-        history = {'train_loss': []}
+        history = {"train_loss": []}
         # For save best feature. Initial loss taken a very high value.
         last_loss = 1000
         # Optimizer used for training process. Adam Optimizer.
         self.optimizer = optim.Adam(self.model.parameters(), lr=learning_rate)
         # Reducing LR on plateau feature to improve training.
         self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            self.optimizer, factor=0.85, patience=2)
-        print('Starting Training Process')
+            self.optimizer, factor=0.85, patience=2
+        )
+        print("Starting Training Process")
         # Epoch Loop
         for epoch in range(epochs):
             start_time = time()
             # Training a single epoch
             epoch_loss = self._train_epoch(trainloader, mini_batch)
             # Collecting all epoch loss values for future visualization.
-            history['train_loss'].append(epoch_loss)
+            history["train_loss"].append(epoch_loss)
             # Logging to Tensorboard
-            self.tb_writer.add_scalar('Train Loss', epoch_loss, epoch)
+            self.tb_writer.add_scalar("Train Loss", epoch_loss, epoch)
             self.tb_writer.add_scalar(
-                'Learning Rate', self.optimizer.param_groups[0]['lr'], epoch)
+                "Learning Rate", self.optimizer.param_groups[0]["lr"], epoch
+            )
             # Reduce LR On Plateau
             self.scheduler.step(epoch_loss)
 
@@ -88,23 +100,23 @@ class BrainTumorClassifier:
                 self._plot_image(epoch, plot_image)
                 self.model.train()
 
-            time_taken = time()-start_time
+            time_taken = time() - start_time
             # Training Logs printed.
-            print(f'Epoch: {epoch+1:03d},  ', end='')
-            print(f'Loss:{epoch_loss:.7f},  ', end='')
-            print(f'Time:{time_taken:.2f}secs', end='')
+            print(f"Epoch: {epoch + 1:03d},  ", end="")
+            print(f"Loss:{epoch_loss:.7f},  ", end="")
+            print(f"Time:{time_taken:.2f}secs", end="")
 
             # Save the best model with lowest epoch loss feature.
             if save_best != None and last_loss > epoch_loss:
                 self.save_model(save_best)
                 last_loss = epoch_loss
-                print(f'\tSaved at loss: {epoch_loss:.10f}')
+                print(f"\tSaved at loss: {epoch_loss:.10f}")
             else:
                 print()
         return history
 
     def save_model(self, path):
-        """ Saves the currently used model to the path specified.
+        """Saves the currently used model to the path specified.
         Follows the best method recommended by Pytorch
         Link: https://pytorch.org/tutorials/beginner/saving_loading_models.html#save-load-state-dict-recommended
         Parameters:
@@ -115,8 +127,8 @@ class BrainTumorClassifier:
         torch.save(self.model.state_dict(), path)
 
     def restore_model(self, path):
-        """ Loads the saved model and restores it to the "model" object.
-        Loads the model based on device used for computation.(CPU/GPU) 
+        """Loads the saved model and restores it to the "model" object.
+        Loads the model based on device used for computation.(CPU/GPU)
         Follows the best method recommended by Pytorch
         Link: https://pytorch.org/tutorials/beginner/saving_loading_models.html#save-load-state-dict-recommended
         Parameters:
@@ -128,16 +140,16 @@ class BrainTumorClassifier:
         self.model.to(self.device)
 
     def test(self, testloader, threshold=0.5):
-        """ To test the performance of model on testing dataset.
+        """To test the performance of model on testing dataset.
         Parameters:
             testloader(torch.utils.data.Dataloader): Testing data
                         loader for the optimizer.
-            threshold(float): Threshold value after which value will be part 
+            threshold(float): Threshold value after which value will be part
                               of output.
                               Default: 0.5
 
         Returns:
-            mean_val_score(float): The mean Sørensen–Dice Coefficient for the 
+            mean_val_score(float): The mean Sørensen–Dice Coefficient for the
                                     whole test dataset.
         """
         # Putting the model to evaluation mode
@@ -160,7 +172,7 @@ class BrainTumorClassifier:
             # Getting a data sample.
             data = next(testloader)
             # Getting the data index
-            index = int(data['index'])
+            index = int(data["index"])
             # Removing the data index from total data indices
             # to indicate this data score has been included.
             if index in test_data_indexes:
@@ -168,19 +180,19 @@ class BrainTumorClassifier:
             else:
                 continue
             # Data prepared to be given as input to model.
-            image = data['image'].view((1, 1, 512, 512)).to(self.device)
-            mask = data['mask'].numpy()
+            image = data["image"].view((1, 1, 512, 512)).to(self.device)
+            mask = data["mask"].numpy()
 
             # Predicted output from the input sample.
             mask_pred = self.model(image).cpu()
             # Threshold elimination.
-            mask_pred = (mask_pred > threshold)
+            mask_pred = mask_pred > threshold
             mask_pred = mask_pred.numpy()
-            
+
             mask = mask.reshape((1, 512, 512))
             mask_pred = mask_pred.reshape((1, 512, 512))
-            
-            # Calculating the dice score for original and 
+
+            # Calculating the dice score for original and
             # constructed image mask.
             mean_val_score += self._dice_coefficient(mask_pred, mask)
 
@@ -191,7 +203,7 @@ class BrainTumorClassifier:
         return mean_val_score
 
     def predict(self, data, threshold=0.5):
-        """ Calculate the output mask on a single input data.
+        """Calculate the output mask on a single input data.
         Parameters:
             data(dict): Contains the index, image, mask torch.Tensor.
                         'index': Index of the image.
@@ -208,13 +220,13 @@ class BrainTumorClassifier:
                             Calculates how similar are the two images.
         """
         self.model.eval()
-        image = data['image'].numpy()
-        mask = data['mask'].numpy()
+        image = data["image"].numpy()
+        mask = data["mask"].numpy()
 
-        image_tensor = torch.Tensor(data['image'])
+        image_tensor = torch.Tensor(data["image"])
         image_tensor = image_tensor.view((-1, 1, 512, 512)).to(self.device)
         output = self.model(image_tensor).detach().cpu()
-        output = (output > threshold)
+        output = output > threshold
         output = output.numpy()
 
         image = image.reshape((512, 512))
@@ -224,7 +236,7 @@ class BrainTumorClassifier:
         return image, mask, output, score
 
     def _train_epoch(self, trainloader, mini_batch):
-        """ Training each epoch.
+        """Training each epoch.
         Parameters:
             trainloader(torch.utils.data.Dataloader): Training data
                         loader for the optimizer.
@@ -238,8 +250,8 @@ class BrainTumorClassifier:
             # Keeping track how many iteration is happening.
             batch_iteration += 1
             # Loading data to device used.
-            image = data['image'].to(self.device)
-            mask = data['mask'].to(self.device)
+            image = data["image"].to(self.device)
+            mask = data["mask"].to(self.device)
             # Clearing gradients of optimizer.
             self.optimizer.zero_grad()
             # Calculation predicted output using forward pass.
@@ -255,14 +267,12 @@ class BrainTumorClassifier:
             batch_loss += loss_value.item()
 
             # Printing batch logs if any.
-            if mini_batch and (batch+1) % mini_batch == 0:
-                batch_loss = batch_loss / \
-                    (mini_batch*trainloader.batch_size)
-                print(
-                    f'    Batch: {batch+1:02d},\tBatch Loss: {batch_loss:.7f}')
+            if mini_batch and (batch + 1) % mini_batch == 0:
+                batch_loss = batch_loss / (mini_batch * trainloader.batch_size)
+                print(f"    Batch: {batch + 1:02d},\tBatch Loss: {batch_loss:.7f}")
                 batch_loss = 0
 
-        epoch_loss = epoch_loss/(batch_iteration*trainloader.batch_size)
+        epoch_loss = epoch_loss / (batch_iteration * trainloader.batch_size)
         return epoch_loss
 
     def _plot_image(self, epoch, sample):
@@ -278,15 +288,14 @@ class BrainTumorClassifier:
 
         # Inputs seperated.
         for data in sample:
-            inputs.append(data['image'])
+            inputs.append(data["image"])
         # Inputs stacked together in a single batch
         inputs = torch.stack(inputs).to(self.device)
         # Outputs gained from model after passing input.
         outputs = self.model(inputs).detach().cpu()
         # Adding the outputs to Tensorboard for visualization.
         for index in range(len(sample)):
-            self.tb_writer.add_image(
-                str(sample[index]['index']), outputs[index], epoch)
+            self.tb_writer.add_image(str(sample[index]["index"]), outputs[index], epoch)
         # Deleting the samples from GPU memory to save space.
         del inputs
 
@@ -307,6 +316,7 @@ class BrainTumorClassifier:
         smooth = 1
         product = np.multiply(predicted, target)
         intersection = np.sum(product)
-        coefficient = (2*intersection + smooth) / \
-            (np.sum(predicted) + np.sum(target) + smooth)
+        coefficient = (2 * intersection + smooth) / (
+            np.sum(predicted) + np.sum(target) + smooth
+        )
         return coefficient

@@ -1,41 +1,50 @@
 import argparse
 import os
 
+import numpy as np
 import torch
 import torchvision.transforms as transforms
 import torchvision.transforms.functional as TF
 from PIL import Image
-import numpy as np
 
-from bts.model import DynamicUNet
 from bts.classifier import BrainTumorClassifier
+from bts.model import DynamicUNet
 
 
 def get_arguments():
     """Returns the command line arguments as a dict"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file', required=False, type=str,
-                        help='Single input file name.')
-    parser.add_argument('--dir', required=False,
-                        type=str, help='Directory name with input images')
-    parser.add_argument('--ofp', required=False,
-                        type=str, help='Single output file path with name.Use this if using "file" flag.')
-    parser.add_argument('--odp', required=False,
-                        type=str, help='Directory path for output images.Use this if using "dir" flag.')
+    parser.add_argument(
+        "--file", required=False, type=str, help="Single input file name."
+    )
+    parser.add_argument(
+        "--dir", required=False, type=str, help="Directory name with input images"
+    )
+    parser.add_argument(
+        "--ofp",
+        required=False,
+        type=str,
+        help='Single output file path with name.Use this if using "file" flag.',
+    )
+    parser.add_argument(
+        "--odp",
+        required=False,
+        type=str,
+        help='Directory path for output images.Use this if using "dir" flag.',
+    )
     args = parser.parse_args()
-    args = {'file': args.file, 'folder': args.dir,
-            'ofp': args.ofp, 'odp': args.odp}
+    args = {"file": args.file, "folder": args.dir, "ofp": args.ofp, "odp": args.odp}
     return args
 
 
 class Api:
     def __init__(self):
         if torch.cuda.is_available():
-            self.device = torch.device('cuda')
+            self.device = torch.device("cuda")
         elif torch.backends.mps.is_available():
-            self.device = torch.device('mps')
+            self.device = torch.device("mps")
         else:
-            self.device = torch.device('cpu')
+            self.device = torch.device("cpu")
 
     def call(self, file, folder, ofp, odp):
         """Method saves the predicted image by taking different parameters."""
@@ -53,12 +62,12 @@ class Api:
             name, extension = os.path.splitext(file)
             if ofp:
                 name = os.path.basename(name)
-                save_path = os.path.join(ofp, name+'_predicted'+extension)
+                save_path = os.path.join(ofp, name + "_predicted" + extension)
             else:
-                save_path = name+'_predicted'+extension
+                save_path = name + "_predicted" + extension
 
             self._save_image(output, save_path)
-            print(f'Output Image Saved At {save_path}')
+            print(f"Output Image Saved At {save_path}")
 
         elif folder != None:
             image_list = os.listdir(folder)
@@ -68,12 +77,15 @@ class Api:
                 output = self._get_model_output(image, model)
 
                 name, extension = os.path.splitext(file)
-                save_path = name+'_predicted'+extension
+                save_path = name + "_predicted" + extension
 
-                save_path = os.path.join(
-                    odp, save_path) if odp else os.path.join(folder, save_path)
+                save_path = (
+                    os.path.join(odp, save_path)
+                    if odp
+                    else os.path.join(folder, save_path)
+                )
                 self._save_image(output, save_path)
-                print(f'Output Image Saved At {save_path}')
+                print(f"Output Image Saved At {save_path}")
 
     def _load_model(self):
         """Load the saved model and return it."""
@@ -81,33 +93,30 @@ class Api:
 
         model = DynamicUNet(filter_list).to(self.device)
         classifier = BrainTumorClassifier(model, self.device)
-        model_path = os.path.join(
-            'saved_models', 'UNet-[16, 32, 64, 128, 256].pt')
+        model_path = os.path.join("saved_models", "UNet-[16, 32, 64, 128, 256].pt")
         classifier.restore_model(model_path)
-        print(
-            f'Saved model at location "{model_path}" loaded on {self.device}')
+        print(f'Saved model at location "{model_path}" loaded on {self.device}')
         return model
 
     def _get_model_output(self, image, model):
         """Returns the saved model output"""
         image = image.view((-1, 1, 512, 512)).to(self.device)
         output = model(image).detach().cpu()
-        output = (output > 0.5)
+        output = output > 0.5
         output = output.numpy()
         output = (output * 255).reshape((512, 512))
         return output
 
     def _save_image(self, image, path):
         """Save the image to storage specified by path"""
-        image = Image.fromarray(np.uint8(image), 'L')
+        image = Image.fromarray(np.uint8(image), "L")
         image.save(path)
 
     def _get_file(self, file_name):
         """Load the image by taking file name as input"""
-        default_transformation = transforms.Compose([
-            transforms.Grayscale(),
-            transforms.Resize((512, 512))
-        ])
+        default_transformation = transforms.Compose(
+            [transforms.Grayscale(), transforms.Resize((512, 512))]
+        )
 
         image = default_transformation(Image.open(file_name))
         return TF.to_tensor(image)
