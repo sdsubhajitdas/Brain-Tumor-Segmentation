@@ -2,50 +2,86 @@
 {% block title %}Try It — Brain Tumor Segmentation{% endblock %}
 
 {% block content %}
-<section class="hero">
-  <h1>Try the model</h1>
-  <p>Upload a brain MRI slice, or pick one of the sample images below, and see the model's predicted tumor mask.</p>
+<section class="max-w-6xl mx-auto px-5 sm:px-8 pt-14 sm:pt-20 pb-10">
+  <p class="font-mono text-xs tracking-[0.2em] uppercase text-finding mb-4">Try the model</p>
+  <h1 class="font-display font-bold text-4xl sm:text-6xl leading-[1.05] max-w-3xl">
+    Upload a slice.<br>Watch it find the tumor.
+  </h1>
+  <p class="mt-5 max-w-xl text-mute leading-relaxed">
+    Pick one of the sample studies below, or upload your own T1-weighted MRI slice.
+    The model runs locally and returns a predicted mask you can compare against the
+    ground truth.
+  </p>
 </section>
 
-<section class="try-it">
-  <div class="try-it-controls">
-    <div class="upload-box">
-      <h2>Upload your own</h2>
-      <input type="file" id="upload-input" accept="image/*">
-      <button id="upload-submit" disabled>Run model</button>
+<section class="max-w-6xl mx-auto px-5 sm:px-8 pb-16">
+  <div class="grid md:grid-cols-2 gap-5">
+    <div class="border border-line bg-panel p-6">
+      <p class="font-mono text-xs tracking-widest uppercase text-mute mb-4">01 — Upload your own</p>
+      <label for="upload-input" class="block border border-dashed border-line hover:border-mute transition-colors p-5 mb-4 cursor-pointer text-center">
+        <span class="block font-mono text-sm text-film" id="upload-filename">Choose an MRI slice (PNG/JPG)</span>
+        <span class="block text-xs text-mute mt-1">Grayscale, ideally 512×512</span>
+      </label>
+      <input type="file" id="upload-input" accept="image/*" class="sr-only">
+      <button id="upload-submit" disabled
+        class="w-full font-mono text-xs tracking-widest uppercase bg-finding text-ink py-3 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#ff6a4c] transition-colors">
+        Run model
+      </button>
     </div>
 
-    <div class="sample-box">
-      <h2>Or pick a sample</h2>
-      <div class="sample-grid">
+    <div class="border border-line bg-panel p-6">
+      <p class="font-mono text-xs tracking-widest uppercase text-mute mb-4">02 — Or open a study</p>
+      <div class="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
         {% for sample_id in sample_ids %}
-        <button class="sample-thumb" data-sample-id="{{ sample_id }}">
-          <img src="/static/samples/{{ sample_id }}.png" alt="Sample {{ sample_id }}" loading="lazy">
+        <button class="sample-thumb viewport" data-sample-id="{{ sample_id }}" aria-label="Sample study {{ sample_id }}">
+          <span class="vp-tr"></span><span class="vp-bl"></span>
+          <img src="/static/samples/{{ sample_id }}.png" alt="Sample MRI slice {{ sample_id }}" loading="lazy" class="block w-full aspect-square object-cover">
         </button>
         {% endfor %}
       </div>
     </div>
   </div>
 
-  <div class="result-box" id="result-box" hidden>
-    <h2>Result</h2>
-    <div id="result-status"></div>
-    <div class="result-images">
-      <figure>
-        <img id="result-input-preview" alt="Input image">
-        <figcaption>Input</figcaption>
+  <div class="result-box mt-6 border border-line bg-panel p-6" id="result-box" hidden>
+    <div class="flex flex-wrap items-baseline justify-between gap-2 mb-5">
+      <p class="font-mono text-xs tracking-widest uppercase text-mute">Result</p>
+      <p id="result-status" class="font-mono text-xs text-mute"></p>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-4">
+      <figure class="m-0">
+        <div class="viewport">
+          <span class="vp-tr"></span><span class="vp-bl"></span>
+          <img id="result-input-preview" alt="Input image" class="block w-full aspect-square object-contain bg-black">
+        </div>
+        <figcaption class="font-mono text-[11px] text-mute mt-2 text-center tracking-wide uppercase">Input</figcaption>
       </figure>
-      <figure>
-        <img id="result-mask" alt="Predicted mask">
-        <figcaption>Predicted mask</figcaption>
+      <figure class="m-0">
+        <div class="viewport relative">
+          <span class="vp-tr"></span><span class="vp-bl"></span>
+          <div id="result-mask-loading" class="absolute inset-0 z-10 flex items-center justify-center bg-panel2">
+            <span class="font-mono text-[10px] text-mute tracking-widest uppercase animate-pulse">Running</span>
+          </div>
+          <img id="result-mask" alt="Predicted mask" class="block w-full aspect-square object-contain bg-black">
+        </div>
+        <figcaption class="font-mono text-[11px] text-mute mt-2 text-center tracking-wide uppercase">Predicted mask</figcaption>
       </figure>
-      <figure>
-        <img id="result-overlay" alt="Overlay">
-        <figcaption>Overlay</figcaption>
+      <figure class="m-0">
+        <div class="viewport is-active relative">
+          <span class="vp-tr"></span><span class="vp-bl"></span>
+          <div id="result-overlay-loading" class="absolute inset-0 z-10 flex items-center justify-center bg-panel2">
+            <span class="font-mono text-[10px] text-mute tracking-widest uppercase animate-pulse">Running</span>
+          </div>
+          <img id="result-overlay" alt="Overlay" class="block w-full aspect-square object-contain bg-black">
+        </div>
+        <figcaption class="font-mono text-[11px] text-mute mt-2 text-center tracking-wide uppercase">Overlay</figcaption>
       </figure>
     </div>
-    <p id="result-dice"></p>
-    <p id="result-timing"></p>
+
+    <div class="mt-6 pt-5 border-t border-line flex flex-wrap gap-x-8 gap-y-2 font-mono text-sm">
+      <p id="result-dice" class="text-film"></p>
+      <p id="result-timing" class="text-mute"></p>
+    </div>
   </div>
 </section>
 {% endblock %}

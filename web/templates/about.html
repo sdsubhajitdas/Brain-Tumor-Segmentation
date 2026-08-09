@@ -2,59 +2,76 @@
 {% block title %}About — Brain Tumor Segmentation{% endblock %}
 
 {% block content %}
-<section class="about">
-  <h1>About this project</h1>
-  <p>
-    This project uses a <a href="https://arxiv.org/abs/1505.04597" target="_blank" rel="noopener">U-Net</a>
+<article class="max-w-3xl mx-auto px-5 sm:px-8 py-14 sm:py-20">
+  <p class="font-mono text-xs tracking-[0.2em] uppercase text-finding mb-4">Method</p>
+  <h1 class="font-display font-bold text-4xl sm:text-5xl leading-[1.05] mb-6">About this project</h1>
+  <p class="text-film leading-relaxed">
+    This project uses a <a href="https://arxiv.org/abs/1505.04597" target="_blank" rel="noopener" class="text-finding hover:underline">U-Net</a>
     architecture to generate segmentation masks for brain tumors in MRI scans.
   </p>
 
-  <h2>Dataset</h2>
-  <p>
-    Trained on a dataset of 3064 T1-weighted contrast-enhanced MRI images spanning three kinds of brain
-    tumor, provided by Jun Cheng
-    (<a href="https://figshare.com/articles/brain_tumor_dataset/1512427" target="_blank" rel="noopener">figshare</a>,
+  <h2 class="font-display font-semibold text-2xl mt-14 mb-3">Dataset</h2>
+  <p class="text-mute leading-relaxed">
+    Trained on 3,064 T1-weighted, contrast-enhanced MRI images spanning three kinds of
+    brain tumor, provided by Jun Cheng
+    (<a href="https://figshare.com/articles/brain_tumor_dataset/1512427" target="_blank" rel="noopener" class="text-finding hover:underline">figshare</a>,
     version 5). Each image is 512×512, single-channel grayscale.
   </p>
-  <div class="image-pair">
-    <figure>
-      <img src="/static/about/dataset_example.png" alt="Example MRI scan" loading="lazy">
-      <figcaption>Original image</figcaption>
+  <div class="grid sm:grid-cols-2 gap-4 mt-6">
+    <figure class="m-0">
+      <div class="viewport"><span class="vp-tr"></span><span class="vp-bl"></span>
+        <img src="/static/about/dataset_example.png" alt="Example MRI scan" loading="lazy" class="block w-full">
+      </div>
+      <figcaption class="font-mono text-[11px] text-mute mt-2 text-center tracking-wide uppercase">Original image</figcaption>
     </figure>
-    <figure>
-      <img src="/static/about/dataset_example_mask.png" alt="Example ground-truth mask" loading="lazy">
-      <figcaption>Ground-truth mask</figcaption>
-    </figure>
-  </div>
-
-  <h2>Data augmentation</h2>
-  <p>
-    Training data is augmented with horizontal flip, vertical flip, and rotation (15°–75°) from
-    Torchvision's transforms, each applied with 0.5 probability, in random order.
-  </p>
-  <img class="about-wide" src="/static/about/data_aug.svg" alt="Data augmentation code" loading="lazy">
-
-  <h2>Model architecture</h2>
-  <p>
-    A 4-block-deep U-Net variant (reduced from the original paper's depth for computational reasons),
-    with configurable filter sizes. Input and output are both 512×512×1.
-  </p>
-  <img class="about-wide" src="/static/about/architecture.png" alt="Model architecture diagram" loading="lazy">
-
-  <h2>Training</h2>
-  <p>
-    Trained for 100 epochs on an Nvidia GTX 1050Ti (4GB), starting at a learning rate of 1e-3, reduced by
-    85% on plateau, ending at 2.7249e-4. Achieved a mean Dice score of ~0.74 on a 600-image held-out test set.
-  </p>
-  <div class="image-pair">
-    <figure>
-      <img src="/static/about/lr_graph.png" alt="Learning rate graph" loading="lazy">
-      <figcaption>Learning rate over training</figcaption>
-    </figure>
-    <figure>
-      <img src="/static/about/loss_graph.png" alt="Loss graph" loading="lazy">
-      <figcaption>Loss over training</figcaption>
+    <figure class="m-0">
+      <div class="viewport"><span class="vp-tr"></span><span class="vp-bl"></span>
+        <img src="/static/about/dataset_example_mask.png" alt="Example ground-truth mask" loading="lazy" class="block w-full">
+      </div>
+      <figcaption class="font-mono text-[11px] text-mute mt-2 text-center tracking-wide uppercase">Ground-truth mask</figcaption>
     </figure>
   </div>
-</section>
+
+  <h2 class="font-display font-semibold text-2xl mt-14 mb-3">Data augmentation</h2>
+  <p class="text-mute leading-relaxed">
+    Training data is augmented with horizontal flip, vertical flip, and rotation
+    (15°–75°) from Torchvision's transforms, each applied with 0.5 probability, in
+    random order.
+  </p>
+  <div class="viewport mt-6"><span class="vp-tr"></span><span class="vp-bl"></span>
+    <img src="/static/about/data_aug.svg" alt="Data augmentation code" loading="lazy" class="block w-full bg-white">
+  </div>
+
+  <h2 class="font-display font-semibold text-2xl mt-14 mb-3">Model architecture</h2>
+  <p class="text-mute leading-relaxed">
+    A 4-block-deep U-Net variant (reduced from the original paper's depth for
+    computational reasons), with configurable filter sizes. Input and output are both
+    512×512×1.
+  </p>
+  <div class="viewport mt-6"><span class="vp-tr"></span><span class="vp-bl"></span>
+    <img src="/static/about/architecture.png" alt="Model architecture diagram" loading="lazy" class="block w-full bg-white">
+  </div>
+
+  <h2 class="font-display font-semibold text-2xl mt-14 mb-3">Training</h2>
+  <p class="text-mute leading-relaxed">
+    Trained for 100 epochs on an Nvidia GTX 1050Ti (4GB), starting at a learning rate
+    of 1e-3, reduced by 85% on plateau, ending at 2.7249e-4. Achieved a mean Dice
+    score of <span class="font-mono text-finding">~0.74</span> on a 600-image held-out
+    test set.
+  </p>
+  <div class="grid sm:grid-cols-2 gap-4 mt-6">
+    <figure class="m-0">
+      <div class="viewport"><span class="vp-tr"></span><span class="vp-bl"></span>
+        <img src="/static/about/lr_graph.png" alt="Learning rate graph" loading="lazy" class="block w-full bg-white">
+      </div>
+      <figcaption class="font-mono text-[11px] text-mute mt-2 text-center tracking-wide uppercase">Learning rate over training</figcaption>
+    </figure>
+    <figure class="m-0">
+      <div class="viewport"><span class="vp-tr"></span><span class="vp-bl"></span>
+        <img src="/static/about/loss_graph.png" alt="Loss graph" loading="lazy" class="block w-full bg-white">
+      </div>
+      <figcaption class="font-mono text-[11px] text-mute mt-2 text-center tracking-wide uppercase">Loss over training</figcaption>
+    </figure>
+  </div>
+</article>
 {% endblock %}

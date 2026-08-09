@@ -2,23 +2,35 @@
 {% block title %}Gallery — Brain Tumor Segmentation{% endblock %}
 
 {% block content %}
-<section class="gallery">
-  <h1>Results gallery</h1>
-  <p>Top-scoring predictions from the held-out test set. Click any image to see it full-size.</p>
+<section class="max-w-6xl mx-auto px-5 sm:px-8 pt-14 sm:pt-20 pb-8">
+  <p class="font-mono text-xs tracking-[0.2em] uppercase text-finding mb-4">Held-out test set</p>
+  <h1 class="font-display font-bold text-4xl sm:text-6xl leading-[1.05] max-w-3xl">Results gallery</h1>
+  <p class="mt-5 max-w-xl text-mute leading-relaxed">
+    {{ gallery_items|length }} predictions scoring Dice ≥ 0.85 against ground truth.
+    Open any study to see it full-size.
+  </p>
+</section>
 
-  <div class="gallery-grid">
+<section class="max-w-6xl mx-auto px-5 sm:px-8 pb-16">
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
     {% for item in gallery_items %}
-    <button class="gallery-thumb" data-full="/static/gallery/full/{{ item.id }}.webp" data-dice="{{ item.dice_label }}">
-      <img src="/static/gallery/thumbs/{{ item.id }}.webp" alt="Result, Dice score {{ item.dice_label }}" loading="lazy">
-      <span class="dice-badge">{{ item.dice_label }}</span>
+    <button class="gallery-thumb viewport" data-full="/static/gallery/full/{{ item.id }}.webp" data-dice="{{ item.dice_label }}" aria-label="Result, Dice score {{ item.dice_label }}">
+      <span class="vp-tr"></span><span class="vp-bl"></span>
+      <img src="/static/gallery/thumbs/{{ item.id }}.webp" alt="Result, Dice score {{ item.dice_label }}" loading="lazy" class="block w-full aspect-square object-cover">
+      <span class="dice-badge absolute bottom-1.5 right-1.5 bg-ink/85 text-film font-mono text-[10px] px-1.5 py-0.5">{{ item.dice_label }}</span>
     </button>
     {% endfor %}
   </div>
 
   <dialog id="lightbox">
-    <img id="lightbox-image" alt="Full-size result">
-    <p id="lightbox-caption"></p>
-    <button id="lightbox-close">Close</button>
+    <div class="viewport border-0">
+      <span class="vp-tr"></span><span class="vp-bl"></span>
+      <img id="lightbox-image" alt="Full-size result" class="block max-w-[90vw] max-h-[75vh] mx-auto">
+    </div>
+    <div class="flex items-center justify-between gap-4 px-4 py-3 border-t border-line">
+      <p id="lightbox-caption" class="font-mono text-xs text-mute"></p>
+      <button id="lightbox-close" class="font-mono text-xs tracking-widest uppercase text-mute hover:text-finding transition-colors">Close ✕</button>
+    </div>
   </dialog>
 </section>
 {% endblock %}

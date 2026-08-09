@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Not found — Brain Tumor Segmentation{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-5 sm:px-8 pt-14 sm:pt-20 pb-24">
+  <p class="font-mono text-xs tracking-[0.2em] uppercase text-finding mb-4">Error 404</p>
+  <h1 class="font-display font-bold text-4xl sm:text-6xl leading-[1.05] max-w-2xl">No study at this path.</h1>
+  <p class="mt-5 max-w-xl text-mute leading-relaxed">
+    The page you're looking for doesn't exist, or was never acquired.
+  </p>
+
+  <div class="viewport mt-10 max-w-sm">
+    <span class="vp-tr"></span><span class="vp-bl"></span>
+    <div class="aspect-square flex items-center justify-center bg-black">
+      <p class="font-mono text-xs tracking-widest uppercase text-mute">No series loaded</p>
+    </div>
+  </div>
+
+  <div class="mt-10 flex flex-wrap gap-4 font-mono text-xs tracking-widest uppercase">
+    <a href="/" class="bg-finding text-ink px-5 py-3 hover:bg-[#ff6a4c] transition-colors">Try the model</a>
+    <a href="/gallery" class="border border-line px-5 py-3 text-mute hover:text-film hover:border-mute transition-colors">Results gallery</a>
+  </div>
+</section>
+{% endblock %}
