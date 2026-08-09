@@ -96,6 +96,34 @@ over there" — commit is pending owner go-ahead).**
 - `README.md` installation section updated: added `.venv` creation/activation steps,
   clarified that `requirements.txt` now installs a CPU/MPS-capable PyTorch build by
   default and CUDA users should install a matching build separately.
+- `setup_scripts/` (`download_dataset.py`, `unzip_dataset.py`, `extract_images.py`)
+  reviewed and **run end-to-end for real, on this machine — no code changes needed**.
+  None of the three import torch/torchvision, so they were never touched by the
+  PyTorch migration; their only deps are requests/tqdm (download), stdlib `zipfile`
+  (unzip), and h5py/numpy/matplotlib (extract), all already pinned to current
+  versions in `requirements.txt`.
+  - Ran `python setup_scripts/download_dataset.py` — all 4 figshare zip parts
+    (~880MB total) + README downloaded successfully into `dataset/` and renamed to
+    `*_done.zip` as the script expects (the URLs are presigned S3 links, so a plain
+    `HEAD` check 403s per-method, but `GET`/streamed download works fine).
+  - Ran `python setup_scripts/unzip_dataset.py` — extracted all 4 parts into
+    `dataset/mat_dataset/`, producing exactly 3064 `.mat` files.
+  - Ran `python setup_scripts/extract_images.py` — converted all 3064 `.mat` files
+    into `dataset/png_dataset/` (6128 PNGs: `{idx}.png` + `{idx}_mask.png` pairs,
+    0-indexed). h5py read path (`file.get('cjdata/image')`/`cjdata/tumorMask')`
+    confirmed working against real data, not just import-checked.
+  - Further verified the *output* is actually usable: loaded it with
+    `bts.dataset.TumorDataset` (len=3064, sample tensors correctly
+    `[1, 512, 512]` float32 in `[0, 1]` — the PNGs save as RGBA via
+    `mpimg.imsave(..., cmap='gray')`, but `TumorDataset`'s `transforms.Grayscale()`
+    already collapses that, so no code change needed there either), then ran 4 real
+    samples through the trained checkpoint via `BrainTumorClassifier.predict()` on
+    the `mps` device — dice scores 0.87 / 0.94 / 0.94 / 0.28, consistent spread
+    around the reported ~0.74 mean over the actual held-out test set.
+  - `dataset/` (~1GB) is local-only, already covered by `.gitignore`, not committed.
+  - Note: this also means `Tumor Segmentation.ipynb` can now actually be re-run
+    end-to-end for real (previously blocked on the dataset not existing locally) —
+    still not yet done as of this writing.
 
 ### Phase 3 — Web app to host the model
 - Users can either pick from example tumor images or upload their own image.
