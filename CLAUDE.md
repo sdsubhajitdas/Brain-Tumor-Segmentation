@@ -155,16 +155,28 @@ over there" — commit is pending owner go-ahead).**
 - App runs inference (reusing `bts/model.py` + `bts/classifier.py` logic, similar to
   `api.py`) and returns/display the predicted mask.
 - Deployment target: owner's personal VPS, managed via **Dokploy**.
-- Not yet scoped: frontend/backend stack choice, whether inference runs synchronously
-  in the request or via a job queue, how example images are bundled, auth/rate-limiting
-  needs for public upload.
+- Stack: FastAPI + plain HTML/vanilla-JS frontend suggested (2026-08-10), not yet
+  confirmed by owner — see Open Questions below.
+- Not yet scoped: whether inference runs synchronously in the request or via a job
+  queue, how example images are bundled, auth/rate-limiting needs for public upload,
+  Dokploy-specific constraints (owner will share later).
 
 ## Open questions to resolve with the owner
 - [x] Confirm: skip literal Phase 1 (old stack) and merge it into Phase 2 (isolate on
       latest deps directly)? → Yes, confirmed 2026-08-09.
-- [ ] Target Python version for the migration?
+- [x] Target Python version for the migration? → Latest (confirmed 2026-08-10). Already
+      what's in use: Python 3.14.2, the system Python on this machine. No action needed.
 - [ ] Web stack preference for Phase 3 (e.g. FastAPI + simple frontend vs. something else)?
+      Owner asked for a recommendation (2026-08-10): suggested **FastAPI backend + plain
+      server-rendered HTML/vanilla-JS frontend** (no React/Vue/Gradio/Streamlit) — reuses
+      `bts/model.py`/`bts/classifier.py` directly with minimal glue (close to what `api.py`
+      already does, wrapped in an endpoint), and is the most Docker/Dokploy-friendly option
+      (plain Python process behind Uvicorn). Tradeoff noted: Gradio/Streamlit would be
+      faster to stand up but reads as an "ML demo" rather than a website with less UI
+      control, which doesn't fit "build a website" framing from the original ask. **Not
+      yet confirmed by owner** — this is a suggestion, not a decision.
 - [ ] Any Dokploy-specific constraints (Docker required? existing services/ports on the VPS?)
+      Owner will share this later (2026-08-10) — do not assume Dokploy specifics until then.
 
 ## Working conventions for this project
 - Big structural changes (Phase 2 migration) happen on a feature branch, not directly on
