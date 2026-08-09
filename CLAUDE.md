@@ -19,15 +19,10 @@ Core pieces:
 
 Owner considers this one of their best/oldest projects. No CI, no tests.
 
-*(Note: this file was out of date on `master` — it still described Phases 1–3 as
-in-progress/unmerged when commit history shows both `modernize-deps` (#28) and
-`web-app` (#29) already merged. Condensed below to match reality. A near-identical
-condensing already happened independently on the unmerged `gallery-sync` branch —
-whichever of that branch or this one merges to `master` first, reconcile the other's
-CLAUDE.md diff by hand rather than mechanically re-merging, since they'll conflict.)*
-
 ## Status: done and live
 Phases 1–3 (dependency modernization, web app) are merged into `master` and deployed.
+The gallery-sync and frontend-redesign work below (originally two separate branches)
+is combined onto this one branch, open as a single PR against `master`.
 
 - **Stack**: Python 3.14.2, torch 2.13.0 / torchvision 0.28.0, FastAPI + vanilla JS
   for the web app.
@@ -52,10 +47,14 @@ Phases 1–3 (dependency modernization, web app) are merged into `master` and de
     capped full-size) are pre-baked and committed under `web/static/` by one-off
     scripts (`web/scripts/prepare_samples.py`, `web/scripts/build_gallery_thumbs.py`).
     The web app never depends on the large gitignored `dataset/` folder, and
-    thumbnails aren't regenerated on every deploy. This branch (`frontend-redesign`,
-    off `master`) still has the original 88-image gallery (dice ≥ 0.94) — the
-    295-image expansion (dice ≥ 0.85) lives on the unmerged `gallery-sync` branch and
-    isn't in this branch's history.
+    thumbnails aren't regenerated on every deploy.
+  - Gallery source images live in `images/` at repo root, whitelisted into git via
+    `.gitignore` by dice-score prefix (`!images/0.XX*`). Threshold widened from
+    dice >= 0.94 to dice >= 0.85 on 2026-08-10 after syncing the full 601-image
+    Google Drive results corpus (owner had it as a local zip on Desktop) — pulled in
+    295 qualifying images (up from 88). Full 601-image corpus was not committed, only
+    the >=0.85 subset; raw source pngs below the threshold aren't kept locally either
+    (re-derive from the owner's gdrive zip if the threshold needs revisiting).
   - `bts/classifier.py` and `bts/model.py` lazily import `tensorboard`/`torchinfo`
     (scoped to `train()`/`.summary()`) rather than at module level — needed so the
     lean web image (which deliberately excludes those training-only deps) can still
@@ -72,7 +71,7 @@ Phases 1–3 (dependency modernization, web app) are merged into `master` and de
   registered on this instance). Domain `bts.subhajitdas.me` → port 8000, https,
   Let's Encrypt.
 
-## Frontend redesign (branch `frontend-redesign`, off `master`, unmerged)
+## Frontend redesign
 Full visual redesign of the 3 pages (`/`, `/about`, `/gallery`) plus a new 404 page,
 requested by the owner. Not yet reviewed/merged.
 
@@ -109,6 +108,14 @@ requested by the owner. Not yet reviewed/merged.
   is installed locally) so the social card's typography matches the live site
   pixel-for-pixel rather than approximating it with a system font. Re-derive that
   script if the OG card ever needs updating — the source `.py` wasn't kept.
+
+## Remaining follow-ups
+- Re-enable `master`'s branch protection (owner disabled the required-review rule to
+  unblock merging #28/#29 — Claude can't do this itself, blocked by a permission
+  classifier).
+- Decide whether to delete the now-merged `modernize-deps`/`web-app` branches.
+- `Tumor Segmentation.ipynb` has never been executed end-to-end for real (the code
+  paths it calls have all been verified individually elsewhere).
 
 ## Working conventions for this project
 - Big structural changes happen on a feature branch, not directly on `master`. Merge
