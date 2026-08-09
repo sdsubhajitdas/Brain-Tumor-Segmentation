@@ -151,32 +151,63 @@ over there" — commit is pending owner go-ahead).**
     `result`) both exercised for real as part of this and needed no changes.
 
 ### Phase 3 — Web app to host the model
-- Users can either pick from example tumor images or upload their own image.
-- App runs inference (reusing `bts/model.py` + `bts/classifier.py` logic, similar to
-  `api.py`) and returns/display the predicted mask.
-- Deployment target: owner's personal VPS, managed via **Dokploy**.
-- Stack: FastAPI + plain HTML/vanilla-JS frontend suggested (2026-08-10), not yet
-  confirmed by owner — see Open Questions below.
-- Not yet scoped: whether inference runs synchronously in the request or via a job
-  queue, how example images are bundled, auth/rate-limiting needs for public upload,
-  Dokploy-specific constraints (owner will share later).
+**Status: v1 implemented, verified locally (including in Docker), not yet deployed to
+the actual Dokploy VPS. Branch `web-app`, stacked as PR #29 on top of #28
+(`modernize-deps`, still unmerged) — `--base modernize-deps`, not `master`.**
+
+- Owner confirmed requirements (2026-08-10): visitors upload an image OR pick from
+  ~10-15 curated samples, run the model, see the predicted mask; a page section
+  adapting README content (architecture, augmentation, dataset, training) — not raw
+  markdown, README.md untouched; a results gallery, thumbnailed/lazy-loaded for VPS
+  egress cost. **New constraint given same session: the entire backend+frontend must
+  run inside a single Docker image for Dokploy.**
+- Stack confirmed: FastAPI + plain server-rendered HTML/vanilla JS (no SPA framework).
+  Multi-page (`/`, `/about`, `/gallery`), not a JS-tabbed single page.
+- Full implementation plan written and approved — see
+  `/Users/subhajitdas/.claude/plans/eager-nibbling-panda.md` for the complete design
+  rationale (routes, image pipeline, Dockerfile strategy, verification plan).
+- Built: `web/` package (FastAPI app, `inference.py` wrapping `BrainTumorClassifier`
+  for load-once-reuse, routes, Jinja2 templates, vanilla JS), `Dockerfile`,
+  `.dockerignore`, `requirements-web.txt` (deliberately separate from
+  `requirements.txt` — excludes training/notebook-only deps like `jupyterlab`).
+- 12 curated sample pairs and 88 gallery images (WebP thumbs + capped full-size) are
+  pre-baked and committed under `web/static/` by one-off scripts
+  (`web/scripts/prepare_samples.py`, `web/scripts/build_gallery_thumbs.py`) — the web
+  app never depends on the large gitignored `dataset/` folder, and thumbnails aren't
+  regenerated on every deploy.
+- **Found and fixed 2 more real bugs** in `bts/` while getting this to actually run in
+  Docker: `bts/classifier.py` and `bts/model.py` imported `tensorboard`/`torchinfo` at
+  module level (for `train()`'s `SummaryWriter` and `.summary()`), which broke
+  `import bts.classifier`/`bts.model` entirely inside the web image since neither
+  package is installed there (deliberately excluded, training-only). Fixed by making
+  both imports lazy, scoped to the methods that use them — no behavior change.
+- **Verified end-to-end, not just "it runs":** local smoke test of every route; a
+  pixel-perfect cross-check of `/api/predict`'s output against the already-verified
+  `api.py` CLI (`numpy.array_equal`, zero differences) on **both** `mps` (host) and
+  `cpu` (Docker container); Docker build+run (final image **1.06GB**, CPU-only
+  torch/torchvision via a scoped `--index-url` install to avoid the default
+  CUDA-bundled wheels); upload edge cases (non-image → 400, oversized → 413, a real
+  non-MRI photo → succeeds non-crashing); confirmed the in-house per-IP rate limiter
+  triggers (429) correctly; confirmed `/healthz` stays responsive (28ms) while
+  concurrent inference requests are in flight, verifying the threadpool-offload
+  actually prevents event-loop blocking.
+- Uploaded images are processed entirely in memory and never written to disk — no
+  cleanup job needed (owner asked about this explicitly during planning).
+- Not yet done: actual deployment to the owner's Dokploy VPS (no VPS access this
+  session — port/domain/health-check-path config happens in the Dokploy UI); syncing
+  the larger Google Drive results corpus into the gallery (size/count still unknown,
+  v1 gallery uses the 88 images already in the repo).
 
 ## Open questions to resolve with the owner
 - [x] Confirm: skip literal Phase 1 (old stack) and merge it into Phase 2 (isolate on
       latest deps directly)? → Yes, confirmed 2026-08-09.
 - [x] Target Python version for the migration? → Latest (confirmed 2026-08-10). Already
       what's in use: Python 3.14.2, the system Python on this machine. No action needed.
-- [ ] Web stack preference for Phase 3 (e.g. FastAPI + simple frontend vs. something else)?
-      Owner asked for a recommendation (2026-08-10): suggested **FastAPI backend + plain
-      server-rendered HTML/vanilla-JS frontend** (no React/Vue/Gradio/Streamlit) — reuses
-      `bts/model.py`/`bts/classifier.py` directly with minimal glue (close to what `api.py`
-      already does, wrapped in an endpoint), and is the most Docker/Dokploy-friendly option
-      (plain Python process behind Uvicorn). Tradeoff noted: Gradio/Streamlit would be
-      faster to stand up but reads as an "ML demo" rather than a website with less UI
-      control, which doesn't fit "build a website" framing from the original ask. **Not
-      yet confirmed by owner** — this is a suggestion, not a decision.
+- [x] Web stack preference for Phase 3? → FastAPI + plain HTML/vanilla-JS, confirmed by
+      owner 2026-08-10, implemented same session (see Phase 3 above, PR #29).
 - [ ] Any Dokploy-specific constraints (Docker required? existing services/ports on the VPS?)
       Owner will share this later (2026-08-10) — do not assume Dokploy specifics until then.
+      This is now the actual blocker on deploying PR #29 for real.
 
 ## Working conventions for this project
 - Big structural changes (Phase 2 migration) happen on a feature branch, not directly on
