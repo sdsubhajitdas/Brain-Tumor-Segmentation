@@ -1,13 +1,16 @@
 # Brain Tumor Segmentation
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/sdsubhajitdas)
-[![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://github.com/Jeetu95/Brain-Tumor-Segmentation)
+[![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://github.com/sdsubhajitdas/Brain-Tumor-Segmentation)
 [![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)<br>
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
-[![Maintenance](https://img.shields.io/badge/Maintenance-No-lightgrey)](https://github.com/Jeetu95/Brain-Tumor-Segmentation/graphs/commit-activity)
-[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/Jeetu95/Brain-Tumor-Segmentation/issues)
+[![Maintenance](https://img.shields.io/badge/Maintenance-Yes-brightgreen)](https://github.com/sdsubhajitdas/Brain-Tumor-Segmentation/graphs/commit-activity)
+[![GitHub issues](https://img.shields.io/github/issues/sdsubhajitdas/Brain-Tumor-Segmentation.svg)](https://github.com/sdsubhajitdas/Brain-Tumor-Segmentation/issues)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://bts.subhajitdas.me)
 
 This project uses [U-Net Architecture](https://arxiv.org/abs/1505.04597) to create segmentation masks for brain tumor images.
+
+**[Try the live demo →](https://bts.subhajitdas.me)** Upload an MRI slice (or pick a sample study) and see the model's predicted tumor mask in your browser.
 
 ## Overview
 - [Dataset Used](#Dataset-Used)
@@ -62,7 +65,7 @@ This project uses Python 3.
 
 Clone the project.
 ```bash
-git clone https://github.com/Jeetu95/Brain-Tumor-Segmentation.git
+git clone https://github.com/sdsubhajitdas/Brain-Tumor-Segmentation.git
 cd Brain-Tumor-Segmentation
 ```
 Create and activate an isolated virtual environment, so this project's dependencies
