@@ -4,25 +4,87 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Brain Tumor Segmentation{% endblock %}</title>
+  <meta name="description" content="{% block description %}Upload a brain MRI slice and watch a U-Net trained on Jun Cheng's dataset segment the tumor in real time.{% endblock %}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Brain Tumor Segmentation">
+  <meta property="og:title" content="{% block og_title %}Brain Tumor Segmentation{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Upload a brain MRI slice and watch a U-Net trained on Jun Cheng's dataset segment the tumor in real time.{% endblock %}">
+  <meta property="og:image" content="{{ request.url.scheme }}://{{ request.url.netloc }}/static/social/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="{{ request.url }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block twitter_title %}Brain Tumor Segmentation{% endblock %}">
+  <meta name="twitter:description" content="{% block twitter_description %}Upload a brain MRI slice and watch a U-Net trained on Jun Cheng's dataset segment the tumor in real time.{% endblock %}">
+  <meta name="twitter:image" content="{{ request.url.scheme }}://{{ request.url.netloc }}/static/social/og-card.png">
+
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32.png">
+  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#0a0c0e",
+            panel: "#14171b",
+            panel2: "#1b1f24",
+            line: "#262b31",
+            film: "#dfe3e8",
+            mute: "#7b8290",
+            finding: "#e8543c",
+          },
+          fontFamily: {
+            display: ["Space Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],
+            body: ["IBM Plex Sans", "ui-sans-serif", "system-ui", "sans-serif"],
+            mono: ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+          },
+        },
+      },
+    };
+  </script>
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
-  <header class="site-header">
-    <a class="brand" href="/">Brain Tumor Segmentation</a>
-    <nav>
-      <a href="/">Try It</a>
-      <a href="/about">About</a>
-      <a href="/gallery">Gallery</a>
-      <a href="https://github.com/sdsubhajitdas/Brain-Tumor-Segmentation" target="_blank" rel="noopener">GitHub</a>
-    </nav>
+<body class="min-h-screen flex flex-col font-body bg-ink text-film antialiased">
+
+  <header class="border-b border-line">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-6">
+      <a href="/" class="font-mono text-xs sm:text-sm tracking-wide text-film hover:text-finding transition-colors flex items-center gap-2.5">
+        <span class="inline-block w-2 h-2 rounded-full bg-finding shrink-0"></span> BRAIN&nbsp;TUMOR&nbsp;SEGMENTATION
+      </a>
+      <nav class="flex items-center flex-wrap gap-x-5 gap-y-1.5 sm:gap-x-7 font-mono text-xs tracking-widest uppercase">
+        <a href="/" class="{{ 'text-finding' if request.url.path == '/' else 'text-mute hover:text-film' }} transition-colors">Try&nbsp;It</a>
+        <a href="/about" class="{{ 'text-finding' if request.url.path == '/about' else 'text-mute hover:text-film' }} transition-colors">About</a>
+        <a href="/gallery" class="{{ 'text-finding' if request.url.path == '/gallery' else 'text-mute hover:text-film' }} transition-colors">Gallery</a>
+        <a href="https://github.com/sdsubhajitdas/Brain-Tumor-Segmentation" target="_blank" rel="noopener" class="text-mute hover:text-film transition-colors">GitHub&nbsp;↗</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <div class="readout-strip">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-2 flex flex-wrap gap-x-6 gap-y-1 font-mono text-[11px] tracking-wide text-mute">
+      <span>MODEL <span class="text-film">DynamicUNet</span></span>
+      <span>INPUT <span class="text-film">512×512×1</span></span>
+      <span>DATASET <span class="text-film">Cheng et al., 3064 studies</span></span>
+      <span>MEAN&nbsp;DICE <span class="text-film">0.74</span></span>
+    </div>
+  </div>
+
+  <main class="flex-1">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="site-footer">
-    <p>Educational/demo project — not medical advice. U-Net trained on Jun Cheng's brain tumor MRI dataset.</p>
+  <footer class="border-t border-line">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-6 font-mono text-[11px] text-mute leading-relaxed">
+      Educational / demo project — not medical advice. U-Net trained on Jun Cheng's brain tumor MRI dataset.
+    </div>
   </footer>
 
   {% block scripts %}{% endblock %}
