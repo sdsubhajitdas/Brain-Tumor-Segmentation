@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Gallery — Brain Tumor Segmentation{% endblock %}
+
+{% block content %}
+<section class="gallery">
+  <h1>Results gallery</h1>
+  <p>Top-scoring predictions from the held-out test set. Click any image to see it full-size.</p>
+
+  <div class="gallery-grid">
+    {% for item in gallery_items %}
+    <button class="gallery-thumb" data-full="/static/gallery/full/{{ item.id }}.webp" data-dice="{{ item.dice_label }}">
+      <img src="/static/gallery/thumbs/{{ item.id }}.webp" alt="Result, Dice score {{ item.dice_label }}" loading="lazy">
+      <span class="dice-badge">{{ item.dice_label }}</span>
+    </button>
+    {% endfor %}
+  </div>
+
+  <dialog id="lightbox">
+    <img id="lightbox-image" alt="Full-size result">
+    <p id="lightbox-caption"></p>
+    <button id="lightbox-close">Close</button>
+  </dialog>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/gallery.js"></script>
+{% endblock %}

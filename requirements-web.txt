@@ -1,0 +1,15 @@
+# Web app (Phase 3) dependencies -- kept separate from requirements.txt so the
+# Docker image doesn't carry training/notebook-only deps (jupyterlab,
+# matplotlib, tensorboard, h5py, torchinfo).
+#
+# torch/torchvision are intentionally NOT listed here -- the Dockerfile
+# installs CPU-only builds separately via download.pytorch.org/whl/cpu to
+# avoid pulling the much larger default CUDA-bundled wheels. For local/non-
+# Docker development, the existing .venv already has torch/torchvision from
+# requirements.txt, so nothing extra is needed there either.
+fastapi==0.141.1
+uvicorn[standard]==0.52.1
+python-multipart==0.0.32
+jinja2==3.1.6
+Pillow==12.3.0
+numpy==2.5.1

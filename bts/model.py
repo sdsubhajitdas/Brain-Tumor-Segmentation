@@ -1,7 +1,6 @@
 import torch
 import torch.nn.functional as F
 from torch import nn
-from torchinfo import summary
 
 
 class InvalidFilterListError(Exception):
@@ -197,4 +196,9 @@ class DynamicUNet(nn.Module):
             Table with columns for Layer Name, Output Shape and Parameters.
             torchinfo.summary() method is used.
         """
+        # Imported here, not at module level, so that code paths which only
+        # need inference (predict()/forward()) don't require the torchinfo
+        # package to be installed just to import this module.
+        from torchinfo import summary
+
         return summary(self, input_size=(batch_size, *input_size), device=device)
