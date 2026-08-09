@@ -1,6 +1,6 @@
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
+from torch import nn
 
 
 class DiceLoss(nn.Module):
@@ -13,10 +13,10 @@ class DiceLoss(nn.Module):
 
     def __init__(self):
         """Simple constructor for the class."""
-        super(DiceLoss, self).__init__()
+        super().__init__()
 
     def forward(self, predicted, target):
-        """ Method for calculation of loss from sample.
+        """Method for calculation of loss from sample.
         Parameters:
             predicted(torch.Tensor): Predicted output of the network.
                                     Shape - (Batch Size,Channel,Height,Width)
@@ -29,8 +29,7 @@ class DiceLoss(nn.Module):
         batch = predicted.size()[0]
         batch_loss = 0
         for index in range(batch):
-            coefficient = self._dice_coefficient(
-                predicted[index], target[index])
+            coefficient = self._dice_coefficient(predicted[index], target[index])
             batch_loss += coefficient
 
         batch_loss = batch_loss / batch
@@ -54,23 +53,25 @@ class DiceLoss(nn.Module):
         smooth = 1
         product = torch.mul(predicted, target)
         intersection = product.sum()
-        coefficient = (2*intersection + smooth) / \
-            (predicted.sum() + target.sum() + smooth)
+        coefficient = (2 * intersection + smooth) / (
+            predicted.sum() + target.sum() + smooth
+        )
         return coefficient
 
 
 class BCEDiceLoss(nn.Module):
-    """ Combination of Binary Cross Entropy Loss and Soft Dice Loss.
+    """Combination of Binary Cross Entropy Loss and Soft Dice Loss.
     This combined loss is used to train the network so that both
     benefits of the loss are leveraged.
     """
 
     def __init__(self, device):
         """Simple constructor for the class."""
-        super(BCEDiceLoss, self).__init__()
+        super().__init__()
         self.dice_loss = DiceLoss().to(device)
 
     def forward(self, predicted, target):
-        """ Method for calculation of combined loss from sample."""
-        return F.binary_cross_entropy(predicted, target) \
-            + self.dice_loss(predicted, target)
+        """Method for calculation of combined loss from sample."""
+        return F.binary_cross_entropy(predicted, target) + self.dice_loss(
+            predicted, target
+        )

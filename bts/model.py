@@ -1,17 +1,21 @@
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
-from torchsummary import summary
+from torch import nn
+from torchinfo import summary
+
+
+class InvalidFilterListError(Exception):
+    """Raised when DynamicUNet isn't given exactly 5 filter values."""
 
 
 class DynamicUNet(nn.Module):
-    """ This is the Pytorch version of U-Net Architecture.
+    """This is the Pytorch version of U-Net Architecture.
     This is not the vanilla version of U-Net.
     For more information about U-Net Architecture check the paper here.
     Link :- https://arxiv.org/abs/1505.04597
 
     This network is modified to have only 4 blocks depth because of
-    computational limitations. 
+    computational limitations.
     The input and output of this network is of the same shape.
     Input Size of Network - (1,512,512)
     Output Size of Network - (1,512,512)
@@ -19,69 +23,109 @@ class DynamicUNet(nn.Module):
     """
 
     def __init__(self, filters, input_channels=1, output_channels=1):
-        """ Constructor for UNet class.
+        """Constructor for UNet class.
         Parameters:
             filters(list): Five filter values for the network.
             input_channels(int): Input channels for the network. Default: 1
             output_channels(int): Output channels for the final network. Default: 1
         """
-        super(DynamicUNet, self).__init__()
+        super().__init__()
 
         if len(filters) != 5:
-            raise Exception(f"Filter list size {len(filters)}, expected 5!")
+            raise InvalidFilterListError(
+                f"Filter list size {len(filters)}, expected 5!"
+            )
 
         padding = 1
         ks = 3
         # Encoding Part of Network.
         #   Block 1
-        self.conv1_1 = nn.Conv2d(input_channels, filters[0], kernel_size=ks, padding=padding)
-        self.conv1_2 = nn.Conv2d(filters[0], filters[0], kernel_size=ks, padding=padding)
+        self.conv1_1 = nn.Conv2d(
+            input_channels, filters[0], kernel_size=ks, padding=padding
+        )
+        self.conv1_2 = nn.Conv2d(
+            filters[0], filters[0], kernel_size=ks, padding=padding
+        )
         self.maxpool1 = nn.MaxPool2d(2)
         #   Block 2
-        self.conv2_1 = nn.Conv2d(filters[0], filters[1], kernel_size=ks, padding=padding)
-        self.conv2_2 = nn.Conv2d(filters[1], filters[1], kernel_size=ks, padding=padding)
+        self.conv2_1 = nn.Conv2d(
+            filters[0], filters[1], kernel_size=ks, padding=padding
+        )
+        self.conv2_2 = nn.Conv2d(
+            filters[1], filters[1], kernel_size=ks, padding=padding
+        )
         self.maxpool2 = nn.MaxPool2d(2)
         #   Block 3
-        self.conv3_1 = nn.Conv2d(filters[1], filters[2], kernel_size=ks, padding=padding)
-        self.conv3_2 = nn.Conv2d(filters[2], filters[2], kernel_size=ks, padding=padding)
+        self.conv3_1 = nn.Conv2d(
+            filters[1], filters[2], kernel_size=ks, padding=padding
+        )
+        self.conv3_2 = nn.Conv2d(
+            filters[2], filters[2], kernel_size=ks, padding=padding
+        )
         self.maxpool3 = nn.MaxPool2d(2)
         #   Block 4
-        self.conv4_1 = nn.Conv2d(filters[2], filters[3], kernel_size=ks, padding=padding)
-        self.conv4_2 = nn.Conv2d(filters[3], filters[3], kernel_size=ks, padding=padding)
+        self.conv4_1 = nn.Conv2d(
+            filters[2], filters[3], kernel_size=ks, padding=padding
+        )
+        self.conv4_2 = nn.Conv2d(
+            filters[3], filters[3], kernel_size=ks, padding=padding
+        )
         self.maxpool4 = nn.MaxPool2d(2)
-        
+
         # Bottleneck Part of Network.
-        self.conv5_1 = nn.Conv2d(filters[3], filters[4], kernel_size=ks, padding=padding)
-        self.conv5_2 = nn.Conv2d(filters[4], filters[4], kernel_size=ks, padding=padding)
+        self.conv5_1 = nn.Conv2d(
+            filters[3], filters[4], kernel_size=ks, padding=padding
+        )
+        self.conv5_2 = nn.Conv2d(
+            filters[4], filters[4], kernel_size=ks, padding=padding
+        )
         self.conv5_t = nn.ConvTranspose2d(filters[4], filters[3], 2, stride=2)
 
         # Decoding Part of Network.
         #   Block 4
-        self.conv6_1 = nn.Conv2d(filters[4], filters[3], kernel_size=ks, padding=padding)
-        self.conv6_2 = nn.Conv2d(filters[3], filters[3], kernel_size=ks, padding=padding)
+        self.conv6_1 = nn.Conv2d(
+            filters[4], filters[3], kernel_size=ks, padding=padding
+        )
+        self.conv6_2 = nn.Conv2d(
+            filters[3], filters[3], kernel_size=ks, padding=padding
+        )
         self.conv6_t = nn.ConvTranspose2d(filters[3], filters[2], 2, stride=2)
         #   Block 3
-        self.conv7_1 = nn.Conv2d(filters[3], filters[2], kernel_size=ks, padding=padding)
-        self.conv7_2 = nn.Conv2d(filters[2], filters[2], kernel_size=ks, padding=padding)
+        self.conv7_1 = nn.Conv2d(
+            filters[3], filters[2], kernel_size=ks, padding=padding
+        )
+        self.conv7_2 = nn.Conv2d(
+            filters[2], filters[2], kernel_size=ks, padding=padding
+        )
         self.conv7_t = nn.ConvTranspose2d(filters[2], filters[1], 2, stride=2)
         #   Block 2
-        self.conv8_1 = nn.Conv2d(filters[2], filters[1], kernel_size=ks, padding=padding)
-        self.conv8_2 = nn.Conv2d(filters[1], filters[1], kernel_size=ks, padding=padding)
+        self.conv8_1 = nn.Conv2d(
+            filters[2], filters[1], kernel_size=ks, padding=padding
+        )
+        self.conv8_2 = nn.Conv2d(
+            filters[1], filters[1], kernel_size=ks, padding=padding
+        )
         self.conv8_t = nn.ConvTranspose2d(filters[1], filters[0], 2, stride=2)
         #   Block 1
-        self.conv9_1 = nn.Conv2d(filters[1], filters[0], kernel_size=ks, padding=padding)
-        self.conv9_2 = nn.Conv2d(filters[0], filters[0], kernel_size=ks, padding=padding)
+        self.conv9_1 = nn.Conv2d(
+            filters[1], filters[0], kernel_size=ks, padding=padding
+        )
+        self.conv9_2 = nn.Conv2d(
+            filters[0], filters[0], kernel_size=ks, padding=padding
+        )
 
         # Output Part of Network.
-        self.conv10 = nn.Conv2d(filters[0], output_channels, kernel_size=ks, padding=padding)
+        self.conv10 = nn.Conv2d(
+            filters[0], output_channels, kernel_size=ks, padding=padding
+        )
 
     def forward(self, x):
-        """ Method for forward propagation in the network.
+        """Method for forward propagation in the network.
         Parameters:
             x(torch.Tensor): Input for the network of size (1, 512, 512).
 
         Returns:
-            output(torch.Tensor): Output after the forward propagation 
+            output(torch.Tensor): Output after the forward propagation
                                     of network on the input.
         """
 
@@ -126,31 +170,31 @@ class DynamicUNet(nn.Module):
         conv9 = F.relu(self.conv9_2(conv9))
 
         # Output Part of Network.
-        output = F.sigmoid(self.conv10(conv9))
+        output = torch.sigmoid(self.conv10(conv9))
 
         return output
 
-    def summary(self, input_size=(1, 512, 512), batch_size=-1, device='cuda'):
-        """ Get the summary of the network in a chart like form
-        with name of layer size of the inputs and parameters 
+    def summary(self, input_size=(1, 512, 512), batch_size=1, device="cuda"):
+        """Get the summary of the network in a chart like form
+        with name of layer size of the inputs and parameters
         and some extra memory details.
-        This method uses the torchsummary package.
+        This method uses the torchinfo package.
         For more information check the link.
-        Link :- https://github.com/sksq96/pytorch-summary
+        Link :- https://github.com/TylerYep/torchinfo
 
         Parameters:
             input_size(tuple): Size of the input for the network in
                                  format (Channel, Width, Height).
                                  Default: (1,512,512)
             batch_size(int): Batch size for the network.
-                                Default: -1
+                                Default: 1
             device(str): Device on which the network is loaded.
-                            Device can be 'cuda' or 'cpu'.
+                            Device can be 'cuda', 'mps' or 'cpu'.
                             Default: 'cuda'
 
         Returns:
             A printed output for IPython Notebooks.
-            Table with 3 columns for Layer Name, Input Size and Parameters.
-            torchsummary.summary() method is used.
+            Table with columns for Layer Name, Output Shape and Parameters.
+            torchinfo.summary() method is used.
         """
-        return summary(self, input_size, batch_size, device)
+        return summary(self, input_size=(batch_size, *input_size), device=device)

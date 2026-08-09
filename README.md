@@ -58,17 +58,27 @@ Loss Graph Plotted in Tensorboard<br><br>
 To see the complete output produced during the training process check [this](logs/05-47-51_PM_on_May_20,_2019/training_output_log.txt)
 
 ## Installation
-This project uses python3.
+This project uses Python 3.
 
 Clone the project.
 ```bash
 git clone https://github.com/Jeetu95/Brain-Tumor-Segmentation.git
+cd Brain-Tumor-Segmentation
 ```
-Install Pytorch from this [link](https://pytorch.org/get-started/locally/)<br>
+Create and activate an isolated virtual environment, so this project's dependencies
+(including PyTorch) don't clash with anything else installed on your system.
+```bash
+python3 -m venv .venv
+source .venv/bin/activate      # On Windows: .venv\Scripts\activate
+```
 Use pip to install all the dependencies
 ```bash
 pip install -r requirements.txt
 ```
+PyTorch will be installed automatically with a CPU/MPS build via `requirements.txt`.
+If you have an NVIDIA GPU and want CUDA acceleration instead, install the matching
+build from [pytorch.org](https://pytorch.org/get-started/locally/) after the step above.
+
 To open the notebook
 ```bash
 jupyter lab
