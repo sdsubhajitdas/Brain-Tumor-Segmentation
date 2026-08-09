@@ -1,0 +1,20 @@
+.venv/
+dataset/
+images/
+logs/
+.git/
+.github/
+__pycache__/
+**/__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+Tumor Segmentation.ipynb
+setup_scripts/
+requirements.txt
+CLAUDE.md
+README.md
+LICENSE
+*.md

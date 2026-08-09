@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Try It — Brain Tumor Segmentation{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Try the model</h1>
+  <p>Upload a brain MRI slice, or pick one of the sample images below, and see the model's predicted tumor mask.</p>
+</section>
+
+<section class="try-it">
+  <div class="try-it-controls">
+    <div class="upload-box">
+      <h2>Upload your own</h2>
+      <input type="file" id="upload-input" accept="image/*">
+      <button id="upload-submit" disabled>Run model</button>
+    </div>
+
+    <div class="sample-box">
+      <h2>Or pick a sample</h2>
+      <div class="sample-grid">
+        {% for sample_id in sample_ids %}
+        <button class="sample-thumb" data-sample-id="{{ sample_id }}">
+          <img src="/static/samples/{{ sample_id }}.png" alt="Sample {{ sample_id }}" loading="lazy">
+        </button>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="result-box" id="result-box" hidden>
+    <h2>Result</h2>
+    <div id="result-status"></div>
+    <div class="result-images">
+      <figure>
+        <img id="result-input-preview" alt="Input image">
+        <figcaption>Input</figcaption>
+      </figure>
+      <figure>
+        <img id="result-mask" alt="Predicted mask">
+        <figcaption>Predicted mask</figcaption>
+      </figure>
+      <figure>
+        <img id="result-overlay" alt="Overlay">
+        <figcaption>Overlay</figcaption>
+      </figure>
+    </div>
+    <p id="result-dice"></p>
+    <p id="result-timing"></p>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/main.js"></script>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Brain Tumor Segmentation{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">Brain Tumor Segmentation</a>
+    <nav>
+      <a href="/">Try It</a>
+      <a href="/about">About</a>
+      <a href="/gallery">Gallery</a>
+      <a href="https://github.com/sdsubhajitdas/Brain-Tumor-Segmentation" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>Educational/demo project — not medical advice. U-Net trained on Jun Cheng's brain tumor MRI dataset.</p>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

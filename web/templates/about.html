@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}About — Brain Tumor Segmentation{% endblock %}
+
+{% block content %}
+<section class="about">
+  <h1>About this project</h1>
+  <p>
+    This project uses a <a href="https://arxiv.org/abs/1505.04597" target="_blank" rel="noopener">U-Net</a>
+    architecture to generate segmentation masks for brain tumors in MRI scans.
+  </p>
+
+  <h2>Dataset</h2>
+  <p>
+    Trained on a dataset of 3064 T1-weighted contrast-enhanced MRI images spanning three kinds of brain
+    tumor, provided by Jun Cheng
+    (<a href="https://figshare.com/articles/brain_tumor_dataset/1512427" target="_blank" rel="noopener">figshare</a>,
+    version 5). Each image is 512×512, single-channel grayscale.
+  </p>
+  <div class="image-pair">
+    <figure>
+      <img src="/static/about/dataset_example.png" alt="Example MRI scan" loading="lazy">
+      <figcaption>Original image</figcaption>
+    </figure>
+    <figure>
+      <img src="/static/about/dataset_example_mask.png" alt="Example ground-truth mask" loading="lazy">
+      <figcaption>Ground-truth mask</figcaption>
+    </figure>
+  </div>
+
+  <h2>Data augmentation</h2>
+  <p>
+    Training data is augmented with horizontal flip, vertical flip, and rotation (15°–75°) from
+    Torchvision's transforms, each applied with 0.5 probability, in random order.
+  </p>
+  <img class="about-wide" src="/static/about/data_aug.svg" alt="Data augmentation code" loading="lazy">
+
+  <h2>Model architecture</h2>
+  <p>
+    A 4-block-deep U-Net variant (reduced from the original paper's depth for computational reasons),
+    with configurable filter sizes. Input and output are both 512×512×1.
+  </p>
+  <img class="about-wide" src="/static/about/architecture.png" alt="Model architecture diagram" loading="lazy">
+
+  <h2>Training</h2>
+  <p>
+    Trained for 100 epochs on an Nvidia GTX 1050Ti (4GB), starting at a learning rate of 1e-3, reduced by
+    85% on plateau, ending at 2.7249e-4. Achieved a mean Dice score of ~0.74 on a 600-image held-out test set.
+  </p>
+  <div class="image-pair">
+    <figure>
+      <img src="/static/about/lr_graph.png" alt="Learning rate graph" loading="lazy">
+      <figcaption>Learning rate over training</figcaption>
+    </figure>
+    <figure>
+      <img src="/static/about/loss_graph.png" alt="Loss graph" loading="lazy">
+      <figcaption>Loss over training</figcaption>
+    </figure>
+  </div>
+</section>
+{% endblock %}

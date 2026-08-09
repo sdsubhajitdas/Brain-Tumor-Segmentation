@@ -4,7 +4,6 @@ from time import time
 import numpy as np
 import torch
 from torch import optim
-from torch.utils.tensorboard import SummaryWriter
 
 from bts import loss
 
@@ -66,7 +65,12 @@ class BrainTumorClassifier:
             history(dict): Contains information about training session.
                             'train_loss': List of loss at every epoch
         """
-        # Tensorboard Writter
+        # Tensorboard Writter. Imported here, not at module level, so that
+        # code paths which only need inference (predict()/test()) don't
+        # require the tensorboard package to be installed just to import
+        # this module.
+        from torch.utils.tensorboard import SummaryWriter
+
         self.tb_writer = SummaryWriter(log_dir=f"logs/{self.log_path}")
         # Training session history data.
         history = {"train_loss": []}
