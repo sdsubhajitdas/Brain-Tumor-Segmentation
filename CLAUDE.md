@@ -124,6 +124,31 @@ over there" — commit is pending owner go-ahead).**
   - Note: this also means `Tumor Segmentation.ipynb` can now actually be re-run
     end-to-end for real (previously blocked on the dataset not existing locally) —
     still not yet done as of this writing.
+- **Training path exercised for real (owner asked to train a tiny model, not just
+  test inference) — found and fixed 3 more torch-version incompatibilities in
+  `bts/classifier.py`**, none of which were caught by the earlier inference-only
+  verification since `train()`/`test()` were never actually called until now:
+  - `optim.lr_scheduler.ReduceLROnPlateau(..., verbose=True)` — `verbose` kwarg was
+    removed in current torch with no replacement; dropped it (only loses the
+    automatic "reducing learning rate" print, no behavior change).
+  - `BrainTumorClassifier.test()` used `testloader.next()` (Python 2 iterator style)
+    — current torch's DataLoader iterator no longer exposes `.next()`; changed to
+    `next(testloader)`.
+  - `BrainTumorClassifier.test()` also never converted `mask` to a numpy array
+    (unlike `predict()`, which does). On the old stack `np.multiply(ndarray, tensor)`
+    apparently didn't matter; on the current numpy/torch interop it returns a
+    `torch.Tensor`, and `Tensor.sum()` doesn't accept numpy's `axis=` kwarg, crashing
+    `_dice_coefficient`. Fixed by adding `.numpy()` at the same point `predict()`
+    already does it.
+  - Verified via a temp scratch-only script (not committed, not part of the repo):
+    trained a **fresh** `DynamicUNet` (not the saved checkpoint) on 32 real samples
+    for 5 epochs, ran `BrainTumorClassifier.test()` and `.predict()` against it, then
+    ran the real unmodified `api.py` `Api` class (subclassed only to point
+    `_load_model` at the scratch checkpoint) end-to-end: train → test → predict → CLI
+    inference all working. `saved_models/UNet-[16, 32, 64, 128, 256].pt` confirmed
+    byte-identical (checksum) before/after — never loaded or overwritten.
+  - `bts/loss.py` (`DiceLoss`/`BCEDiceLoss`) and `bts/plot.py` (`loss_graph`,
+    `result`) both exercised for real as part of this and needed no changes.
 
 ### Phase 3 — Web app to host the model
 - Users can either pick from example tumor images or upload their own image.

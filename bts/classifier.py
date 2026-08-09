@@ -63,7 +63,7 @@ class BrainTumorClassifier():
         self.optimizer = optim.Adam(self.model.parameters(), lr=learning_rate)
         # Reducing LR on plateau feature to improve training.
         self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            self.optimizer, factor=0.85, patience=2, verbose=True)
+            self.optimizer, factor=0.85, patience=2)
         print('Starting Training Process')
         # Epoch Loop
         for epoch in range(epochs):
@@ -155,7 +155,7 @@ class BrainTumorClassifier():
         # Running the loop until no more data is left to test.
         while len(test_data_indexes) != 0:
             # Getting a data sample.
-            data = testloader.next()
+            data = next(testloader)
             # Getting the data index
             index = int(data['index'])
             # Removing the data index from total data indices
@@ -166,7 +166,7 @@ class BrainTumorClassifier():
                 continue
             # Data prepared to be given as input to model.
             image = data['image'].view((1, 1, 512, 512)).to(self.device)
-            mask = data['mask']
+            mask = data['mask'].numpy()
 
             # Predicted output from the input sample.
             mask_pred = self.model(image).cpu()
