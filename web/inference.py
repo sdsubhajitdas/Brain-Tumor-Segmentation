@@ -15,25 +15,22 @@ from pathlib import Path
 
 import numpy as np
 import torch
-import torchvision.transforms as transforms
-import torchvision.transforms.functional as TF
 from PIL import Image
 
 from bts.classifier import BrainTumorClassifier
 from bts.model import DynamicUNet
+
+# Single-request-at-a-time CPU inference doesn't benefit from intra-op
+# parallelism; capping avoids torch defaulting to the host machine's full
+# core count (which can exceed this container's cgroup CPU quota) and
+# wasting memory on unused thread-local MKL/oneDNN buffers.
+torch.set_num_threads(1)
 
 FILTER_LIST = [16, 32, 64, 128, 256]
 MODEL_PATH = (
     Path(__file__).resolve().parent.parent
     / "saved_models"
     / "UNet-[16, 32, 64, 128, 256].pt"
-)
-
-_default_transformation = transforms.Compose(
-    [
-        transforms.Grayscale(),
-        transforms.Resize((512, 512)),
-    ]
 )
 
 
@@ -76,8 +73,13 @@ class InferenceEngine:
         return self._run(image_tensor, dummy_mask_tensor, threshold, has_ground_truth=False)
 
     def _tensor_from_pil(self, image: Image.Image) -> torch.Tensor:
-        image = _default_transformation(image)
-        return TF.to_tensor(image)
+        # Matches torchvision's Grayscale + Resize((512, 512)) + to_tensor
+        # pipeline this used to run (torchvision's PIL grayscale codepath is
+        # just convert("L"); Resize on a PIL image is just Image.resize()),
+        # without depending on torchvision itself for three lines of PIL/numpy.
+        image = image.convert("L").resize((512, 512), Image.BILINEAR)
+        arr = np.array(image, dtype=np.uint8)
+        return torch.from_numpy(arr).float().div(255.0).unsqueeze(0)
 
     def _run(
         self,
