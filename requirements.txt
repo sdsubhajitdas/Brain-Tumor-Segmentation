@@ -1,5 +1,5 @@
 h5py==3.16.0
-jupyterlab==4.6.2
+jupyterlab==4.6.4
 matplotlib==3.11.1
 numpy==2.5.1
 Pillow==12.3.0
