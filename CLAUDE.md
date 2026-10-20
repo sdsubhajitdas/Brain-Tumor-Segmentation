@@ -81,9 +81,9 @@ is combined onto this one branch, open as a single PR against `master`.
 - **Analytics**: self-hosted Umami (also on the Dokploy instance), loaded by one
   `<script>` tag in `web/templates/base.html` so every page inherits it.
   `data-domains="bts.subhajitdas.me"` restricts tracking to the live domain, so local
-  dev visits never show up in stats. The Umami URL is currently `http://` on an
-  sslip.io host; browsers block an http script on the https site (mixed content),
-  so tracking only works once Umami has an https domain and the tag's `src` is updated.
+  dev visits never show up in stats. Umami is served from `https://umami.subhajitdas.me`
+  — it must stay https, since browsers block an http script on the https site
+  (mixed content).
 - **Dokploy deployment**: uses the existing GitHub App integration on that instance
   (no new auth needed), builds directly from the repo's root `Dockerfile`. No
   `serverId` set — deploys on the Dokploy host itself (no separate remote servers are
