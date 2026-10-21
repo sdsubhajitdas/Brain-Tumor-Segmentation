@@ -9,6 +9,7 @@
       lightboxImage.src = thumb.dataset.full;
       lightboxCaption.textContent = `Dice score: ${thumb.dataset.dice}`;
       lightbox.showModal();
+      track("gallery-open", { image_id: thumb.dataset.id, dice: parseFloat(thumb.dataset.dice) });
     });
   });
 

@@ -52,7 +52,12 @@
   </script>
   <link rel="stylesheet" href="/static/css/style.css">
 
-  <script defer src="https://umami.subhajitdas.me/script.js" data-website-id="d1fff9a1-5600-4549-8fc4-7cef8c703da9" data-domains="bts.subhajitdas.me"></script>
+  <script defer src="https://umami.subhajitdas.me/script.js" data-website-id="bac2904d-8927-4555-947e-2748cc210489" data-domains="bts.subhajitdas.me"></script>
+  <script>
+    window.track = (name, data) => {
+      try { window.umami && window.umami.track(name, data); } catch (_) {}
+    };
+  </script>
 </head>
 <body class="min-h-screen flex flex-col font-body bg-ink text-film antialiased">
 
@@ -65,7 +70,7 @@
         <a href="/" class="{{ 'text-finding' if request.url.path == '/' else 'text-mute hover:text-film' }} transition-colors">Try&nbsp;It</a>
         <a href="/about" class="{{ 'text-finding' if request.url.path == '/about' else 'text-mute hover:text-film' }} transition-colors">About</a>
         <a href="/gallery" class="{{ 'text-finding' if request.url.path == '/gallery' else 'text-mute hover:text-film' }} transition-colors">Gallery</a>
-        <a href="https://github.com/sdsubhajitdas/Brain-Tumor-Segmentation" target="_blank" rel="noopener" class="text-mute hover:text-film transition-colors">GitHub&nbsp;↗</a>
+        <a href="https://github.com/sdsubhajitdas/Brain-Tumor-Segmentation" data-umami-event="github-click" target="_blank" rel="noopener" class="text-mute hover:text-film transition-colors">GitHub&nbsp;↗</a>
       </nav>
     </div>
   </header>

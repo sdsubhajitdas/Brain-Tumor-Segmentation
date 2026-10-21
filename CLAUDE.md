@@ -83,7 +83,16 @@ is combined onto this one branch, open as a single PR against `master`.
   `data-domains="bts.subhajitdas.me"` restricts tracking to the live domain, so local
   dev visits never show up in stats. Umami is served from `https://umami.subhajitdas.me`
   — it must stay https, since browsers block an http script on the https site
-  (mixed content).
+  (mixed content). Umami site name "Brain Tumor Segmentation", website ID
+  `bac2904d-8927-4555-947e-2748cc210489`. Do-Not-Track is intentionally *not* honored
+  (Umami's default — don't add `data-do-not-track="true"`).
+  - **Custom events**, fired via the guarded `window.track()` helper in `base.html`
+    (no-ops if an ad blocker removed `window.umami`): `predict-start` (`source`,
+    `sample_id`|`file_type`), `predict-success` (`source`, `inference_ms`, `dice` for
+    samples), `predict-error` (`source`, `status`; 0 = network failure, 429 = rate
+    limited), `gallery-open` (`image_id`, `dice`), and `github-click` (declarative
+    `data-umami-event` on the header link). Never send filenames, image data, error
+    text or anything identifying the uploader.
 - **Dokploy deployment**: uses the existing GitHub App integration on that instance
   (no new auth needed), builds directly from the repo's root `Dockerfile`. No
   `serverId` set — deploys on the Dokploy host itself (no separate remote servers are
