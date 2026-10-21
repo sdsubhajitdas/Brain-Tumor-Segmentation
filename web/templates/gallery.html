@@ -14,7 +14,7 @@
 <section class="max-w-6xl mx-auto px-5 sm:px-8 pb-16">
   <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
     {% for item in gallery_items %}
-    <button class="gallery-thumb viewport" data-full="/static/gallery/full/{{ item.id }}.webp" data-dice="{{ item.dice_label }}" aria-label="Result, Dice score {{ item.dice_label }}">
+    <button class="gallery-thumb viewport" data-id="{{ item.id }}" data-full="/static/gallery/full/{{ item.id }}.webp" data-dice="{{ item.dice_label }}" aria-label="Result, Dice score {{ item.dice_label }}">
       <span class="vp-tr"></span><span class="vp-bl"></span>
       <img src="/static/gallery/thumbs/{{ item.id }}.webp" alt="Result, Dice score {{ item.dice_label }}" loading="lazy" class="block w-full aspect-square object-cover">
       <span class="dice-badge absolute bottom-1.5 right-1.5 bg-ink/85 text-film font-mono text-[10px] px-1.5 py-0.5">{{ item.dice_label }}</span>

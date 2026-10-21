@@ -33,7 +33,7 @@
 
     const formData = new FormData();
     formData.append("file", selectedFile);
-    runPredict(formData);
+    runPredict(formData, { source: "upload", file_type: selectedFile.type });
   });
 
   sampleThumbs.forEach((btn) => {
@@ -50,11 +50,12 @@
 
       const formData = new FormData();
       formData.append("sample_id", sampleId);
-      runPredict(formData);
+      runPredict(formData, { source: "sample", sample_id: sampleId });
     });
   });
 
-  async function runPredict(formData) {
+  async function runPredict(formData, meta) {
+    track("predict-start", meta);
     resultBox.hidden = false;
     resultStatus.textContent = "Running model...";
     resultStatus.classList.remove("error");
@@ -70,7 +71,9 @@
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.detail || "Prediction failed.");
+        const error = new Error(data.detail || "Prediction failed.");
+        error.status = response.status;
+        throw error;
       }
 
       resultStatus.textContent = "Done.";
@@ -83,7 +86,13 @@
           ? `Dice score vs. ground truth: ${data.dice_score.toFixed(4)}`
           : "No ground-truth mask available for uploaded images.";
       resultTiming.textContent = `Inference time: ${Math.round(data.inference_ms)}ms`;
+      track("predict-success", {
+        source: meta.source,
+        inference_ms: Math.round(data.inference_ms),
+        ...(data.dice_score !== null && { dice: Number(data.dice_score.toFixed(4)) }),
+      });
     } catch (err) {
+      track("predict-error", { source: meta.source, status: err.status ?? 0 });
       resultStatus.textContent = `Error: ${err.message}`;
       resultStatus.classList.add("error");
       setLoading(resultMaskLoading, "No series loaded");
